@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="053e54f1-8662-4da0-89f3-660fade47c5a" name="Default" comment="" />
+    <list default="true" id="053e54f1-8662-4da0-89f3-660fade47c5a" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/Stock_Analiser.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stock_Analiser.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,14 +21,35 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-349856191">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="4" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="4" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Stock_Analiser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2873">
-              <caret line="174" selection-start-line="174" selection-end-line="174" />
+            <state relative-caret-position="119">
+              <caret line="7" column="14" lean-forward="true" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+              <folding>
+                <element signature="e#19#31#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -34,11 +57,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Stock.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="21" lean-forward="true" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
+            <state>
+              <caret column="8" lean-forward="true" selection-start-column="7" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -70,6 +90,9 @@
       <find>('products/{}/price_levels'.format(product_id), data=data)</find>
     </findStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -79,10 +102,10 @@
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_5.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_7.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_6.py" />
-        <option value="$PROJECT_DIR$/../../../../Service Offering/snowApiClassPython/snowConfigClass.py" />
-        <option value="$PROJECT_DIR$/../../../../Service Offering/snowApiClassPython/snowIncidentClass.py" />
-        <option value="$PROJECT_DIR$/../../../../Service Offering/snowApiClassPython/snowTest.py" />
-        <option value="$PROJECT_DIR$/../../../../scratch.py" />
+        <option value="D:/Service Offering/snowApiClassPython/snowConfigClass.py" />
+        <option value="D:/Service Offering/snowApiClassPython/snowIncidentClass.py" />
+        <option value="D:/Service Offering/snowApiClassPython/snowTest.py" />
+        <option value="D:/scratch.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_8.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_9.py" />
         <option value="$PROJECT_DIR$/Stock.py" />
@@ -98,6 +121,7 @@
     <option name="width" value="1036" />
     <option name="height" value="744" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -107,7 +131,7 @@
   <component name="PropertiesComponent">
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="Python" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../.." />
+    <property name="last_opened_file_path" value="D:" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -157,11 +181,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../.." />
+      <option name="WORKING_DIRECTORY" value="D:" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../../UnSleep.py" />
+      <option name="SCRIPT_NAME" value="D:/UnSleep.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -178,11 +202,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../.." />
+      <option name="WORKING_DIRECTORY" value="D:" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../../scratch.py" />
+      <option name="SCRIPT_NAME" value="D:/scratch.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -241,11 +265,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../../Service Offering/snowApiClassPython" />
+      <option name="WORKING_DIRECTORY" value="D:/Service Offering/snowApiClassPython" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../../Service Offering/snowApiClassPython/snowTest.py" />
+      <option name="SCRIPT_NAME" value="D:/Service Offering/snowApiClassPython/snowTest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -303,12 +327,12 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32746956" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49366286" visible="true" weight="0.29634643" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49315068" visible="true" weight="0.29609543" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49809885" weight="0.39783493" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32882273" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5063371" side_tool="true" visible="true" weight="0.29609543" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5068493" side_tool="true" visible="true" weight="0.29609543" />
       <window_info anchor="bottom" id="Python Console" order="8" sideWeight="0.49936628" weight="0.32746956" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32882273" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
@@ -381,34 +405,34 @@
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_5.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_6.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_4.py" />
-    <entry file="file://$PROJECT_DIR$/../../../../Service Offering/snowApiClassPython/snowTest.py" />
+    <entry file="file://D:/Service Offering/snowApiClassPython/snowTest.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_7.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_3.py" />
-    <entry file="file://$PROJECT_DIR$/../../../../Service Offering/snowApiClassPython/snowIncidentClass.py" />
-    <entry file="file://$PROJECT_DIR$/../../../../Service Offering/snowApiClassPython/snowExceptionClass.py" />
-    <entry file="file://$PROJECT_DIR$/../../../../Service Offering/snowApiClassPython/snowConfigClass.py" />
+    <entry file="file://D:/Service Offering/snowApiClassPython/snowIncidentClass.py" />
+    <entry file="file://D:/Service Offering/snowApiClassPython/snowExceptionClass.py" />
+    <entry file="file://D:/Service Offering/snowApiClassPython/snowConfigClass.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_8.py" />
     <entry file="file://C:/Python37/Lib/json/decoder.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_9.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_11.py" />
-    <entry file="file://$PROJECT_DIR$/../../../../scratch.py" />
-    <entry file="file://$PROJECT_DIR$/../../../../UnSleep.py" />
+    <entry file="file://D:/scratch.py" />
+    <entry file="file://D:/UnSleep.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_10.py" />
     <entry file="file://C:/Python37/Lib/site-packages/requests/adapters.py" />
     <entry file="file://$PROJECT_DIR$/Stock_Analiser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2873">
-          <caret line="174" selection-start-line="174" selection-end-line="174" />
+        <state relative-caret-position="119">
+          <caret line="7" column="14" lean-forward="true" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+          <folding>
+            <element signature="e#19#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Stock.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="21" lean-forward="true" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
+        <state>
+          <caret column="8" lean-forward="true" selection-start-column="7" selection-end-column="15" />
         </state>
       </provider>
     </entry>
