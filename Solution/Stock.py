@@ -7,6 +7,8 @@ import threading
 
 CONST_CURRENCY_NAMES = ['ETH', 'BTC', 'LTC']
 
+log_path_markets = "../output/markets_log/"
+log_path_program = "../output/program_log/"
 
 class StockNames(object):
     QUOINE = "QUOINE"
@@ -37,14 +39,14 @@ class WebSocketThread (threading.Thread):
 
 
 def log_signal(signal):
-    log_file = open("data/log/signals.txt", "a")
+    log_file = open(log_path_markets + "signals.txt", "a")
     log_file.write(str(datetime.datetime.now())+": "+str(signal)+"\n")
     log_file.close()
     print(signal)
 
 
 def log_error(error_msg):
-    log_file = open("data/log/errors.txt", "a")
+    log_file = open(log_path_program + "errors.txt", "a")
     log_file.write(str(datetime.datetime.now()) + ": " + str(error_msg) + "\n")
     log_file.close()
     print(error_msg)
@@ -100,7 +102,7 @@ class Market:
         return False
 
     def log_raw_data(self):
-        self.log_file = open("data/log/" + self.raw_data_file_name, "a")
+        self.log_file = open(log_path_markets + self.raw_data_file_name, "a")
         self.log_file.write(str(datetime.datetime.now().time())+","
                             + str(self.get_top_ask_order_rate())+","+str(self.get_top_ask_order_amount())+","
                             + str(self.get_top_bid_order_rate())+","+str(self.get_top_bid_order_amount())+","
