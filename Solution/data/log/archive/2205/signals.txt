@@ -1,0 +1,3 @@
+2018-05-21 21:01:43.446727: Buy at COINBASE_GDAX for 0.0; Sell at KRAKEN for 7095.3 margin rate (for 1 btc): 7076.85222
+2018-05-21 21:02:32.575537: Buy at COINBASE_GDAX for 0.0; Sell at KRAKEN for 7095.8 margin rate (for 1 btc): 7077.35092
+2018-05-21 21:18:50.905952: Buy at COINBASE_GDAX for 0.0; Sell at KRAKEN for 7111.7 margin rate (for 1 btc): 7093.20958

@@ -1,0 +1,55 @@
+2018-07-29 05:41:13.153399: 
+Buy ETH at KRAKEN for 398.83 EUR; Sell at TheRockTrading for 400.7 EUR
+   Trade amount: 0.046 ETH
+   Trade value: 36.862944467999995 EUR
+   Trade profit: 0.0014555320000002121 EUR
+   Calculations for 1 coin: 
+   *  margin rate: 0.03164200000000461 EUR
+   *  operational amount: 801.368358 EUR
+   *  margin/amount: 3.9484963043675185e-05 %
+   *  margin/coin_price: 7.933706090313337e-05
+
+2018-07-29 05:41:14.734489: 
+Buy ETH at KRAKEN for 398.83 EUR; Sell at TheRockTrading for 400.69 EUR
+   Trade amount: 0.042 ETH
+   Trade value: 33.657050196 EUR
+   Trade profit: 0.0009098040000005812 EUR
+   Calculations for 1 coin: 
+   *  margin rate: 0.021662000000013837 EUR
+   *  operational amount: 801.358338 EUR
+   *  margin/amount: 2.703160243403012e-05 %
+   *  margin/coin_price: 5.431386806410854e-05
+
+2018-07-29 05:41:16.987618: 
+Buy ETH at KRAKEN for 398.6 EUR; Sell at TheRockTrading for 400.69 EUR
+   Trade amount: 0.042 ETH
+   Trade value: 33.64736508 EUR
+   Trade profit: 0.010594919999998953 EUR
+   Calculations for 1 coin: 
+   *  margin rate: 0.25225999999997506 EUR
+   *  operational amount: 801.12774 EUR
+   *  margin/amount: 0.00031488111995715384 %
+   *  margin/coin_price: 0.0006328650275963667
+
+2018-07-29 05:41:18.315694: 
+Buy ETH at KRAKEN for 398.6 EUR; Sell at TheRockTrading for 400.69 EUR
+   Trade amount: 0.042 ETH
+   Trade value: 33.64736508 EUR
+   Trade profit: 0.010594919999998953 EUR
+   Calculations for 1 coin: 
+   *  margin rate: 0.25225999999997506 EUR
+   *  operational amount: 801.12774 EUR
+   *  margin/amount: 0.00031488111995715384 %
+   *  margin/coin_price: 0.0006328650275963667
+
+2018-07-29 05:41:20.602825: 
+Buy ETH at KRAKEN for 398.59 EUR; Sell at TheRockTrading for 400.7 EUR
+   Trade amount: 0.005 ETH
+   Trade value: 4.00563867 EUR
+   Trade profit: 0.0013613300000000683 EUR
+   Calculations for 1 coin: 
+   *  margin rate: 0.27226600000001366 EUR
+   *  operational amount: 801.1277339999999 EUR
+   *  margin/amount: 0.0003398534196794886 %
+   *  margin/coin_price: 0.0006830728317317177
+
