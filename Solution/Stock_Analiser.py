@@ -11,6 +11,9 @@ websocket_on = True
 REST_on = True
 activeStocks = []
 
+log_path_markets = "../output/markets_log/"
+log_path_program = "../output/program_log/"
+
 very_small_positive_number = 0.0000000001
 
 
@@ -116,7 +119,7 @@ def is_margin_between_markets(market1, market2):
 
 
 def log_signal(signal):
-    log_file = open("data/log/signals.txt", "a")
+    log_file = open(log_path_markets+"signals.txt", "a")
     log_file.write(str(datetime.datetime.now())+": "+str(signal)+"\n")
     log_file.close()
     print(str(datetime.datetime.now())+": "+str(signal))
@@ -164,16 +167,6 @@ def gather_info(iterator, active_stocks):
 #    BitfinexMarketThread = \
 #        WebSocketThread(threadIterator, "Thread: " + market.get_market_name(), threadIterator, Bitfinex, market)
 #    BitfinexMarketThread.start()
-
-#pusher_client = pusher.Pusher(
-#  app_id='545943',
-#  key='724d3f7e94fd47645e10',
-#  secret='b8f7250925228fa4e100',
-#  cluster='eu',
-#  ssl=True
-#)
-
-#pusher_client.trigger('my-channel', 'my-event', {'message': 'hello world'})
 
 # COINBASE_GDAX init:
 
