@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="053e54f1-8662-4da0-89f3-660fade47c5a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stock.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stock.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stock_Analiser.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stock_Analiser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Analytics/Bitfinex/Stock Requirements.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/Analytics/Kraken/Withdrawal fees.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/accounts.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/log/Analytics.xlsx" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,11 +45,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Stock_Analiser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="119" lean-forward="true" selection-start-line="119" selection-end-line="119" />
+            <state relative-caret-position="292">
+              <caret line="127" column="41" lean-forward="true" selection-start-line="127" selection-start-column="41" selection-end-line="127" selection-end-column="41" />
               <folding>
                 <element signature="e#19#31#0" expanded="true" />
                 <element signature="e#271#750#0" />
@@ -61,11 +62,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Stock.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
-              <caret line="10" column="31" selection-start-line="9" selection-end-line="10" selection-end-column="43" />
+              <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
                 <element signature="e#172#227#0" />
@@ -438,22 +439,10 @@
     <entry file="file://D:/UnSleep.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_10.py" />
     <entry file="file://C:/Python37/Lib/site-packages/requests/adapters.py" />
-    <entry file="file://$PROJECT_DIR$/Stock.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="31" selection-start-line="9" selection-end-line="10" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-            <element signature="e#172#227#0" />
-            <element signature="e#300#879#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Stock_Analiser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="119" lean-forward="true" selection-start-line="119" selection-end-line="119" />
+        <state relative-caret-position="292">
+          <caret line="127" column="41" lean-forward="true" selection-start-line="127" selection-start-column="41" selection-end-line="127" selection-end-column="41" />
           <folding>
             <element signature="e#19#31#0" expanded="true" />
             <element signature="e#271#750#0" />
@@ -461,6 +450,18 @@
             <element signature="e#1706#2563#0" />
             <element signature="e#2618#6213#0" />
             <marker date="1536607356875" expanded="true" signature="1493:1495" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Stock.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#172#227#0" />
+            <element signature="e#300#879#0" />
           </folding>
         </state>
       </provider>
