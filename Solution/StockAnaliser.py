@@ -1,45 +1,42 @@
 #!/usr/bin/python
 
-import Stock
 import datetime
 import asyncio
 import threading
-import winsound
-#import pusher
-import Telegram_bot
+import TelegramBot
+import Stock
 
-websocket_on = True
-REST_on = True
+WEBSOCKET_ON = True
+REST_ON = True
+LOG_PATH_MARKETS = "../output/markets_log/"
+LOG_PATH_PROGRAM = "../output/program_log/"
+VERY_SMALL_POSITIVE_NUMBER = 0.0000000001
+
 activeStocks = []
-
-log_path_markets = "../output/markets_log/"
-log_path_program = "../output/program_log/"
-
-very_small_positive_number = 0.0000000001
 
 
 # Thread for websocket
-class WebSocketThread (threading.Thread):
+class WebSocketThread(threading.Thread):
 
     stock = None
     market = None
 
-    def __init__(self, thread_id, name, counter, stock, market):
+    def __init__(self, thread_id, name, counter, stock, current_market):
         threading.Thread.__init__(self)
         self.threadID = thread_id
         self.name = name
         self.counter = counter
-        self.market = market
+        self.market = current_market
         self.stock = stock
 
     def run(self):
-            print("Starting " + self.name)
-            Telegram_bot.TB.send_message("Starting " + self.name)
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            loop.run_until_complete(self.stock.get_ticker_websocket(self.market))
-            loop.close()
-            print("Exiting " + self.name)
+        print("Starting " + self.name)
+        TelegramBot.TB.send_message("Starting " + self.name)
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(self.stock.get_ticker_websocket(self.market))
+        loop.close()
+        print("Exiting " + self.name)
 
 
 def print_trade_info(crypto_currency, fiat_currency, buy_stock_name, sell_stock_name, stock_buy_crypto_rate,
@@ -71,8 +68,8 @@ def is_margin_between_markets(market1, market2):
         margin = m2_top_bid_order_rate - m1_top_ask_order_rate - m2_top_bid_order_taker_fee - m1_top_ask_order_taker_fee
         operational_amount = m1_top_ask_order_rate + m1_top_ask_order_taker_fee + \
                              m2_top_bid_order_rate + m2_top_bid_order_taker_fee
-        margin_to_amount_ratio = margin / (operational_amount+very_small_positive_number)
-        margin_to_coin_price_ratio = margin / (m1_top_ask_order_rate+very_small_positive_number)
+        margin_to_amount_ratio = margin / (operational_amount + VERY_SMALL_POSITIVE_NUMBER)
+        margin_to_coin_price_ratio = margin / (m1_top_ask_order_rate + VERY_SMALL_POSITIVE_NUMBER)
         m2_amount = float(market2.get_top_bid_order_amount())
         m1_amount = float(market1.get_top_ask_order_amount())
         trade_amount = min(m1_amount, m2_amount)
@@ -85,8 +82,8 @@ def is_margin_between_markets(market1, market2):
         margin = m1_top_bid_order_rate - m2_top_ask_order_rate - m2_top_ask_order_taker_fee - m1_top_bid_order_taker_fee
         operational_amount = m2_top_ask_order_rate + m2_top_ask_order_taker_fee + \
                              m1_top_bid_order_rate + m1_top_bid_order_taker_fee
-        margin_to_amount_ratio = margin/(operational_amount + very_small_positive_number)
-        margin_to_coin_price_ratio = margin/(m2_top_ask_order_rate + very_small_positive_number)
+        margin_to_amount_ratio = margin/(operational_amount + VERY_SMALL_POSITIVE_NUMBER)
+        margin_to_coin_price_ratio = margin/(m2_top_ask_order_rate + VERY_SMALL_POSITIVE_NUMBER)
         m2_amount = float(market2.get_top_ask_order_amount())
         m1_amount = float(market1.get_top_bid_order_amount())
         trade_amount = min(m1_amount, m2_amount)
@@ -95,26 +92,25 @@ def is_margin_between_markets(market1, market2):
         print_trade_info(crypto_currency=market1.get_currency1(), fiat_currency=market1.get_currency2(), buy_stock_name=market2.get_stock_name(), sell_stock_name=market1.get_stock_name(),
                          stock_buy_crypto_rate=m2_top_ask_order_rate, stock_sell_crypto_rate=m1_top_bid_order_rate, trade_amount=trade_amount, trade_value=trade_value, trade_profit=trade_profit,
                          margin=margin, operational_amount=operational_amount, margin_to_amount_ratio=margin_to_amount_ratio, margin_to_coin_price_ratio=margin_to_coin_price_ratio)
-    return
 
 
 def log_signal(signal):
-    log_file = open(log_path_markets+"signals.txt", "a")
+    log_file = open(LOG_PATH_MARKETS + "signals.txt", "a")
     log_file.write(str(datetime.datetime.now())+": "+str(signal)+"\n")
     log_file.close()
     print(str(datetime.datetime.now())+": "+str(signal))
-    Telegram_bot.TB.send_message(signal)
+    TelegramBot.TB.send_message(signal)
 
 
-def gather_info(iterator, active_stocks):
-    # print(str(iterator)+". " + str(datetime.datetime.now().time()))
+def gather_info(active_stocks):
     group_response = True
     # todo: move to the separate threads
+    # todo: check wtf is going on with group_response
     # REST only
     for stock in active_stocks:
         if stock.websocket_address is None:
-            for market in stock.get_market_list():
-                market.set_response(stock.get_ticker(market))
+            for currentMarket in stock.get_market_list():
+                currentMarket.set_response(stock.get_ticker(currentMarket))
     # All
     for stock in active_stocks:
         stock.log_raw_data()
@@ -157,7 +153,7 @@ Coinbase_GDAX_BTC_USD_market = Coinbase_GDAX.add_market("BTC", "USD")
 
 # initialisation of Coinbase_X websocket threads
 
-if websocket_on:
+if WEBSOCKET_ON:
     threadIterator = 0
     for market in Coinbase_GDAX.get_market_list():
         threadIterator = threadIterator + 1
@@ -198,10 +194,9 @@ iteration = datetime.timedelta(seconds=1)
 i = 0
 
 # todo: must be reworked into threads
-while REST_on:
+while REST_ON:
     if datetime.datetime.now() - iteration > last_check:
-        i = i+1
-        response = gather_info(i, activeStocks)
+        response = gather_info(activeStocks)
         last_check = datetime.datetime.now()
         is_margin_between_markets(Kraken_BTC_USD_market, Coinbase_GDAX_BTC_USD_market)
         if not response:

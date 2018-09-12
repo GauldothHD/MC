@@ -4,14 +4,14 @@ import requests
 
 class TelegramBot:
 
-    TOKEN = ""
-    URL = ""
-    CHAT_ID = ""
+    token = ""
+    url = ""
+    chat_id = ""
 
     def __init__(self):
-        self.TOKEN = open('../telegram_token.txt', 'r').read()
-        self.URL = "https://api.telegram.org/bot{}/".format(self.TOKEN)
-        self.CHAT_ID = self.get_last_chat_id(self.get_updates())
+        self.token = open('../telegram_token.txt', 'r').read()
+        self.url = "https://api.telegram.org/bot{}/".format(self.token)
+        self.chat_id = self.get_last_chat_id(self.get_updates())
 
     @staticmethod
     def get_url(url):
@@ -25,7 +25,7 @@ class TelegramBot:
         return js
 
     def get_updates(self):
-        url = self.URL + "getUpdates"
+        url = self.url + "getUpdates"
         js = self.get_json_from_url(url)
         return js
 
@@ -45,7 +45,7 @@ class TelegramBot:
         return chat_id
 
     def send_message(self, text):
-        url = self.URL + "sendMessage?text={}&chat_id={}".format(text, self.CHAT_ID)
+        url = self.url + "sendMessage?text={}&chat_id={}".format(text, self.chat_id)
         self.get_url(url)
 
 

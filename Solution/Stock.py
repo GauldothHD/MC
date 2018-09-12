@@ -1,23 +1,23 @@
-import requests
-import datetime
-import websockets
-import json
-import asyncio
 import threading
-import Telegram_bot
+import asyncio
+import json
+import datetime
+import requests
+import websockets
+import TelegramBot
 
 CONST_CURRENCY_NAMES = ['ETH', 'BTC', 'LTC']
 
-log_path_markets = "../output/markets_log/"
-log_path_program = "../output/program_log/"
+LOG_PATH_MARKETS = "../output/markets_log/"
+LOG_PATH_PROGRAM = "../output/program_log/"
 
-class StockNames(object):
+class StockNames:
     QUOINE = "QUOINE"
     TheRockTrading = "TheRockTrading"
 
 
 # Thread for websocket
-class WebSocketThread (threading.Thread):
+class WebSocketThread(threading.Thread):
 
     stock = None
     market = None
@@ -31,28 +31,28 @@ class WebSocketThread (threading.Thread):
         self.stock = stock
 
     def run(self):
-            print("Starting " + self.name)
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            loop.run_until_complete(self.stock.get_ticker_websocket(self.market))
-            loop.close()
-            print("Exiting " + self.name)
+        print("Starting " + self.name)
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(self.stock.get_ticker_websocket(self.market))
+        loop.close()
+        print("Exiting " + self.name)
 
 
 def log_signal(signal):
-    log_file = open(log_path_markets + "signals.txt", "a")
+    log_file = open(LOG_PATH_MARKETS + "signals.txt", "a")
     log_file.write(str(datetime.datetime.now())+": "+str(signal)+"\n")
     log_file.close()
     print(signal)
-    Telegram_bot.TB.send_message(signal)
+    TelegramBot.TB.send_message(signal)
 
 
 def log_error(error_msg):
-    log_file = open(log_path_program + "errors.txt", "a")
+    log_file = open(LOG_PATH_PROGRAM + "errors.txt", "a")
     log_file.write(str(datetime.datetime.now()) + ": " + str(error_msg) + "\n")
     log_file.close()
     print(error_msg)
-    Telegram_bot.TB.send_message(error_msg)
+    TelegramBot.TB.send_message(error_msg)
 
 
 class Market:
@@ -88,8 +88,6 @@ class Market:
         self.taker_fee = stock_tacker_fee
         self.raw_data_file_name = stock_name + "_" + currency1 + "_" + currency2 + ".csv"
 
-        return
-
     def get_market_definition(self):
         result = "Stock: " + self.stock_name + " traiding pair: " + self.currency1 + "/" + self.currency2
         result = result + "\n    Ask: " + str(self.top_ask_order_rate) + " Bid: " + str(self.top_bid_order_rate)
@@ -105,7 +103,7 @@ class Market:
         return False
 
     def log_raw_data(self):
-        self.log_file = open(log_path_markets + self.raw_data_file_name, "a")
+        self.log_file = open(LOG_PATH_MARKETS + self.raw_data_file_name, "a")
         self.log_file.write(str(datetime.datetime.now().time())+","
                             + str(self.get_top_ask_order_rate())+","+str(self.get_top_ask_order_amount())+","
                             + str(self.get_top_bid_order_rate())+","+str(self.get_top_bid_order_amount())+","
@@ -155,32 +153,25 @@ class Market:
     def set_top_ask_order_rate(self, value):
         self.top_ask_order_rate = value
         self.top_ask_order_taker_fee = float(value) * float(self.taker_fee)
-        return
 
     def set_top_bid_order_rate(self, value):
         self.top_bid_order_rate = value
         self.top_bid_order_taker_fee = float(value) * float(self.taker_fee)
-        return
 
     def set_top_ask_order_amount(self, value):
         self.top_ask_order_amount = value
-        return
 
     def set_top_bid_order_amount(self, value):
         self.top_bid_order_amount = value
-        return
 
     def set_top_ask_order_timestamp(self, value):
         self.top_ask_order_timestamp = value
-        return
 
     def set_top_bid_order_timestamp(self, value):
         self.top_bid_order_timestamp = value
-        return
 
     def set_response(self, value):
         self.response = value
-        return
 
 
 # general parent class
@@ -202,34 +193,19 @@ class Stock:
     def print_markets_info(self):
         for market in self.market_list:
             print(market.get_market_definition())
-        return
 
     def get_market(self, currency1, currency2):
         for market in self.market_list:
             if market.check_market(currency1, currency2):
                 return market
+            else:
+                return None
 
     def get_market_list(self):
         return self.market_list
 
     def get_name(self):
         return self.stock_name
-
-    def print_buy_orders(self):
-        print(self.stock_name + " buy orders:")
-        print(self.buy_orders)
-        return
-
-    def print_sell_orders(self):
-        print(self.stock_name + " sell orders:")
-        print(self.sell_orders)
-        return
-
-    def get_sell_orders(self):
-        return self.sell_orders
-
-    def get_buy_orders(self):
-        return self.buy_orders
 
     def get_taker_fee(self):
         if self.get_name() == StockNames.QUOINE:
@@ -261,6 +237,7 @@ class Bittrex(Stock):
             return True
         else:
             log_error("Bittrex response:" + str(req.json()['message']))
+            return False
 
     def get_market_data(self, market):
         currency1 = market.get_currency1()
@@ -273,6 +250,7 @@ class Bittrex(Stock):
             return True
         else:
             log_error("Bittrex response:" + str(req.json()['message']))
+            return False
 
 
 class Kraken(Stock):
@@ -289,7 +267,6 @@ class Kraken(Stock):
         Stock.__init__(self)
         self.stock_name = "KRAKEN"
         self.taker_fee = 0.0026  # custom set commision
-        return
 
     def init_markets(self):
         req = requests.get('https://api.kraken.com/0/public/AssetPairs')
@@ -308,14 +285,12 @@ class Kraken(Stock):
         #self.assets.sort()
         #self.asset_pairs.sort()
         #self.asset_pairs_alt_name.sort()
-        return
 
     def print_assets(self):
         print("Kraken available markets:")
         print("Asset pairs:            "+str(self.asset_pairs))
         print("Asset alternative names:"+str(self.asset_pairs_alt_name))
         print("Assets :"+str(self.assets))
-        return
 
     def get_ticker(self, market):
         currency1 = market.get_currency1()
@@ -369,6 +344,7 @@ class QUOINE(Stock):
             return True
         else:
             log_error(str(self.get_name()) + " response code:" + str(response.status_code))
+            return False
 
     # def get_market_data(self, market):
         #request_address = "https://api.quoine.com/products/"+str(self.get_prod_market_id())
@@ -423,16 +399,16 @@ class Bitfinex(Stock):
             while True:
                 update_json = await websocket.recv()
                 if update_json.find("hb") == -1:
-                    first_find=update_json[update_json.find(",")+1:]
-                    bid_rate=first_find[:first_find.find(",")]
+                    first_find = update_json[update_json.find(",")+1:]
+                    bid_rate = first_find[:first_find.find(",")]
 
-                    second_find=first_find[first_find.find(",")+1:]
+                    second_find = first_find[first_find.find(",")+1:]
                     bid_amount = second_find[:second_find.find(",")]
 
-                    third_find=second_find[second_find.find(",")+1:]
+                    third_find = second_find[second_find.find(",")+1:]
                     ask_rate = third_find[:third_find.find(",")]
 
-                    forth_find=third_find[third_find.find(",")+1:]
+                    forth_find = third_find[third_find.find(",")+1:]
                     ask_amount = forth_find[:forth_find.find(",")]
                     # exception code recieved
                     if bid_rate == "\"code\":20051":
@@ -535,7 +511,7 @@ class CoinbaseGDAX(Stock):
         except websockets.exceptions.ConnectionClosed as exc:
             print(self.last_answer)
             log_error(str(datetime.datetime.now())+" "+self.stock_name + " error code: " + str(exc.code) + ", reason: "
-                       + str(exc.reason) + ", _cause_ : "+str(exc.__cause__))
+                      + str(exc.reason) + ", _cause_ : "+str(exc.__cause__))
             self.iteration = self.iteration + 1
             print("Restarting...")
             Coinbase_GDAXMarketThread = \
@@ -590,3 +566,4 @@ class TheRockTrading(Stock):
             return True
         else:
             log_error(str(self.get_name()) + " response code:" + str(response.status_code))
+            return False
