@@ -10,13 +10,11 @@ class TelegramBot:
 
     def __init__(self):
         self.TOKEN = open('../telegram_token.txt', 'r').read()
-        print(self.TOKEN)
         self.URL = "https://api.telegram.org/bot{}/".format(self.TOKEN)
-        print(self.URL)
         self.CHAT_ID = self.get_last_chat_id(self.get_updates())
-        print(self.CHAT_ID)
 
-    def get_url(self, url):
+    @staticmethod
+    def get_url(url):
         response = requests.get(url)
         content = response.content.decode("utf8")
         return content
@@ -31,14 +29,16 @@ class TelegramBot:
         js = self.get_json_from_url(url)
         return js
 
-    def get_last_chat_id_and_text(self, updates):
+    @staticmethod
+    def get_last_chat_id_and_text(updates):
         num_updates = len(updates["result"])
         last_update = num_updates - 1
         text = updates["result"][last_update]["message"]["text"]
         chat_id = updates["result"][last_update]["message"]["chat"]["id"]
-        return (text, chat_id)
+        return text, chat_id
 
-    def get_last_chat_id(self, updates):
+    @staticmethod
+    def get_last_chat_id(updates):
         num_updates = len(updates["result"])
         last_update = num_updates - 1
         chat_id = updates["result"][last_update]["message"]["chat"]["id"]
@@ -49,12 +49,5 @@ class TelegramBot:
         self.get_url(url)
 
 
-
-
-#text, chat = get_last_chat_id_and_text(get_updates())
-#send_message("test", CHAT_ID)
-
-#print ("wtf")
 TB = TelegramBot()
-#TB.__init__()
 TB.send_message("Bot connection successful.")
