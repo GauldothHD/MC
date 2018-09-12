@@ -18,24 +18,6 @@ log_path_program = "../output/program_log/"
 very_small_positive_number = 0.0000000001
 
 
-# Thread for sound
-class SoundThread (threading.Thread):
-
-    def __init__(self, thread_id, name, counter):
-        threading.Thread.__init__(self)
-        self.threadID = thread_id
-        self.name = name
-        self.counter = counter
-
-    def run(self):
-        print("Starting " + self.name)
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        loop.run_until_complete(winsound.PlaySound('data\sounds\cash_register2.wav', winsound.SND_FILENAME))
-        loop.close()
-        print("Exiting " + self.name)
-
-
 # Thread for websocket
 class WebSocketThread (threading.Thread):
 
@@ -99,8 +81,6 @@ def is_margin_between_markets(market1, market2):
         print_trade_info(crypto_currency=market2.get_currency1(), fiat_currency=market2.get_currency2(), buy_stock_name=market1.get_stock_name(), sell_stock_name=market2.get_stock_name(),
                          stock_buy_crypto_rate=m1_top_ask_order_rate, stock_sell_crypto_rate=m2_top_bid_order_rate, trade_amount=trade_amount, trade_value=trade_value, trade_profit=trade_profit,
                          margin=margin, operational_amount=operational_amount, margin_to_amount_ratio=margin_to_amount_ratio, margin_to_coin_price_ratio=margin_to_coin_price_ratio)
-        audio_thread = SoundThread(0, "sound", 0)
-        audio_thread.start()
     if m2_top_ask_order_rate + m2_top_ask_order_taker_fee < m1_top_bid_order_rate - m1_top_bid_order_taker_fee:
         margin = m1_top_bid_order_rate - m2_top_ask_order_rate - m2_top_ask_order_taker_fee - m1_top_bid_order_taker_fee
         operational_amount = m2_top_ask_order_rate + m2_top_ask_order_taker_fee + \
@@ -115,8 +95,6 @@ def is_margin_between_markets(market1, market2):
         print_trade_info(crypto_currency=market1.get_currency1(), fiat_currency=market1.get_currency2(), buy_stock_name=market2.get_stock_name(), sell_stock_name=market1.get_stock_name(),
                          stock_buy_crypto_rate=m2_top_ask_order_rate, stock_sell_crypto_rate=m1_top_bid_order_rate, trade_amount=trade_amount, trade_value=trade_value, trade_profit=trade_profit,
                          margin=margin, operational_amount=operational_amount, margin_to_amount_ratio=margin_to_amount_ratio, margin_to_coin_price_ratio=margin_to_coin_price_ratio)
-        audio_thread = SoundThread(0, "sound", 0)
-        audio_thread.start()
     return
 
 

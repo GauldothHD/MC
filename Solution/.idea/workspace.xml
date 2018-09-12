@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="053e54f1-8662-4da0-89f3-660fade47c5a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Telegram_bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/Telegram_bot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stock_Analiser.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stock_Analiser.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,24 +33,24 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="Python Console" value="26" />
-          <entry key="py" value="849" />
+          <entry key="Python Console" value="36" />
+          <entry key="py" value="856" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="748" />
+          <entry key="Python" value="765" />
           <entry key="Scratch" value="127" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="5" />
+          <entry key="py" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="3" />
+          <entry key="Python" value="4" />
           <entry key="Scratch" value="2" />
         </counts>
       </usages-collector>
@@ -57,24 +58,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Stock_Analiser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="54" column="24" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="24" />
+            <state relative-caret-position="163">
+              <caret line="20" column="25" lean-forward="true" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
               <folding>
                 <element signature="e#19#31#0" expanded="true" />
-                <marker date="1536784061480" expanded="true" signature="1579:1581" ph="..." />
+                <element signature="e#381#860#0" />
+                <marker date="1536794202814" expanded="true" signature="1586:1588" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Telegram_bot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="13" column="64" selection-start-line="13" selection-start-column="64" selection-end-line="13" selection-end-column="64" />
+            <state relative-caret-position="155">
+              <caret line="11" column="62" lean-forward="true" selection-start-line="11" selection-start-column="62" selection-end-line="11" selection-end-column="62" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
                 <marker date="1536784356924" expanded="true" signature="48:50" ph="..." />
@@ -154,8 +156,8 @@
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/Telegram_bot.py" />
         <option value="$PROJECT_DIR$/Stock.py" />
-        <option value="$PROJECT_DIR$/Stock_Analiser.py" />
         <option value="$PROJECT_DIR$/Telegram_bot.py" />
+        <option value="$PROJECT_DIR$/Stock_Analiser.py" />
       </list>
     </option>
   </component>
@@ -281,6 +283,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="epydoc" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="MoneyCraft" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="D:/Programs/Python/Python37-32/Scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="D:/Programs/Python/Python37-32/Scripts/epydoc.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="scratch (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MoneyCraft" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -294,27 +317,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="scratch" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="MoneyCraft" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="D:" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="D:/scratch.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -348,18 +350,18 @@
       <item itemvalue="Python.Telegram_bot" />
       <item itemvalue="Python.Stock_Analiser" />
       <item itemvalue="Python.scratch (1)" />
-      <item itemvalue="Python.scratch" />
       <item itemvalue="Python.scratch_11" />
       <item itemvalue="Python.UnSleep" />
       <item itemvalue="Python.Telegram_bot (1)" />
+      <item itemvalue="Python.epydoc" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.epydoc" />
         <item itemvalue="Python.Telegram_bot (1)" />
         <item itemvalue="Python.scratch (1)" />
         <item itemvalue="Python.UnSleep" />
         <item itemvalue="Python.scratch_11" />
-        <item itemvalue="Python.scratch" />
       </list>
     </recent_temporary>
   </component>
@@ -386,7 +388,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24968314" />
@@ -498,25 +500,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Stock_Analiser.py">
+    <entry file="file://D:/Programs/Python/Python37-32/Scripts/epydoc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="54" column="24" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="24" />
-          <folding>
-            <element signature="e#19#31#0" expanded="true" />
-            <marker date="1536784061480" expanded="true" signature="1579:1581" ph="..." />
-          </folding>
+        <state relative-caret-position="289">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Telegram_bot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="13" column="64" selection-start-line="13" selection-start-column="64" selection-end-line="13" selection-end-column="64" />
+        <state relative-caret-position="155">
+          <caret line="11" column="62" lean-forward="true" selection-start-line="11" selection-start-column="62" selection-end-line="11" selection-end-column="62" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
             <marker date="1536784356924" expanded="true" signature="48:50" ph="..." />
             <marker date="1536784356924" expanded="true" signature="1304:1313" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Stock_Analiser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="20" column="25" lean-forward="true" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+          <folding>
+            <element signature="e#19#31#0" expanded="true" />
+            <element signature="e#381#860#0" />
+            <marker date="1536794202814" expanded="true" signature="1586:1588" ph="..." />
           </folding>
         </state>
       </provider>
