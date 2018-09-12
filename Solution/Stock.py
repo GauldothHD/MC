@@ -44,7 +44,7 @@ def log_signal(signal):
     log_file.write(str(datetime.datetime.now())+": "+str(signal)+"\n")
     log_file.close()
     print(signal)
-    Telegram_bot.send_message(signal, Telegram_bot.CHAT_ID)
+    Telegram_bot.TB.send_message(signal)
 
 
 def log_error(error_msg):
@@ -52,7 +52,7 @@ def log_error(error_msg):
     log_file.write(str(datetime.datetime.now()) + ": " + str(error_msg) + "\n")
     log_file.close()
     print(error_msg)
-    Telegram_bot.send_message(error_msg, Telegram_bot.CHAT_ID)
+    Telegram_bot.TB.send_message(error_msg)
 
 
 class Market:
@@ -534,8 +534,8 @@ class CoinbaseGDAX(Stock):
                     market.set_top_ask_order_timestamp(time)
         except websockets.exceptions.ConnectionClosed as exc:
             print(self.last_answer)
-            log_error(str(datetime.datetime.now())+" "+self.stock_name + " error code: " + str(exc.code) + " reason: "
-                       + str(exc.reason) + " _cause_ : "+str(exc.__cause__))
+            log_error(str(datetime.datetime.now())+" "+self.stock_name + " error code: " + str(exc.code) + ", reason: "
+                       + str(exc.reason) + ", _cause_ : "+str(exc.__cause__))
             self.iteration = self.iteration + 1
             print("Restarting...")
             Coinbase_GDAXMarketThread = \
