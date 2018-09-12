@@ -6,6 +6,7 @@ import asyncio
 import threading
 import winsound
 #import pusher
+import Telegram_bot
 
 websocket_on = True
 REST_on = True
@@ -51,6 +52,7 @@ class WebSocketThread (threading.Thread):
 
     def run(self):
             print("Starting " + self.name)
+            Telegram_bot.send_message("Starting " + self.name, Telegram_bot.CHAT_ID)
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
             loop.run_until_complete(self.stock.get_ticker_websocket(self.market))
@@ -123,6 +125,7 @@ def log_signal(signal):
     log_file.write(str(datetime.datetime.now())+": "+str(signal)+"\n")
     log_file.close()
     print(str(datetime.datetime.now())+": "+str(signal))
+    Telegram_bot.send_message(signal, Telegram_bot.CHAT_ID)
 
 
 def gather_info(iterator, active_stocks):
