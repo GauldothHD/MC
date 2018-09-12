@@ -6,3 +6,4 @@ To do list:
 2. Rework structure with help of UML designing tools.
 3. Request new API key for telegram bot, as previous is compromised
 4. Create multithreading mechanism to provide ability to check multiple stocks at the same time, in parallel.
+5. Come through todo's inserted in the code
