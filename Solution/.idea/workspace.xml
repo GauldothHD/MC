@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="053e54f1-8662-4da0-89f3-660fade47c5a" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/MoneyCraft.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MoneyCraft.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Stock.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stock.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stock_Analiser.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stock_Analiser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Telegram_bot.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StockAnaliser.py" beforeDir="false" afterPath="$PROJECT_DIR$/StockAnaliser.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,35 +64,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Stock_Analiser.py">
+      <file leaf-file-name="TelegramBot.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TelegramBot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="38" column="37" lean-forward="true" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
+            <state relative-caret-position="362">
+              <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
               <folding>
-                <element signature="e#20#35#0" expanded="true" />
-                <marker date="1536796408007" expanded="true" signature="988:990" ph="..." />
+                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TelegramBot.py">
+      <file leaf-file-name="Stock.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Stock.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="23" column="9" lean-forward="true" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+            <state relative-caret-position="412">
+              <caret line="105" column="77" selection-start-line="105" selection-start-column="73" selection-end-line="105" selection-end-column="77" />
+              <folding>
+                <element signature="e#0#16#0" expanded="true" />
+                <element signature="e#398#953#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Stock.py">
+      <file leaf-file-name="StockAnaliser.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/StockAnaliser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+            <state>
               <folding>
-                <element signature="e#0#16#0" expanded="true" />
+                <element signature="e#19#34#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -131,6 +135,7 @@
       <find>buy_orders</find>
       <find>get_prod_market_id</find>
       <find>Telegram_bot</find>
+      <find>&quot;a&quot;</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -156,9 +161,10 @@
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/Telegram_bot.py" />
         <option value="$PROJECT_DIR$/Telegram_bot.py" />
-        <option value="$PROJECT_DIR$/Stock.py" />
         <option value="$PROJECT_DIR$/TelegramBot.py" />
         <option value="$PROJECT_DIR$/Stock_Analiser.py" />
+        <option value="$PROJECT_DIR$/Stock.py" />
+        <option value="$PROJECT_DIR$/StockAnaliser.py" />
       </list>
     </option>
   </component>
@@ -217,9 +223,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
     </configuration>
     <configuration name="Stock_Analiser" type="PythonConfigurationType" factoryName="Python">
       <module name="MoneyCraft" />
@@ -238,9 +241,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
     </configuration>
     <configuration name="Telegram_bot (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MoneyCraft" />
@@ -259,9 +259,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
     </configuration>
     <configuration name="Telegram_bot" type="PythonConfigurationType" factoryName="Python">
       <module name="MoneyCraft" />
@@ -280,9 +277,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
     </configuration>
     <configuration name="UnSleep" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MoneyCraft" />
@@ -301,9 +295,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
     </configuration>
     <configuration name="epydoc" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MoneyCraft" />
@@ -322,9 +313,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
     </configuration>
     <configuration name="scratch (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MoneyCraft" />
@@ -343,9 +331,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Python.Telegram_bot" />
@@ -389,26 +374,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24968314" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.15335868" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49947312" weight="0.3264642" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.47945204" weight="0.29609543" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49809885" weight="0.39783493" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32882273" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5205479" side_tool="true" weight="0.29609543" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.47945204" visible="true" weight="0.29499322" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Python Console" order="8" sideWeight="0.49936628" weight="0.3264642" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.3286334" />
-      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.15335868" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32746956" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49809885" weight="0.39783493" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49947312" weight="0.3264642" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -428,9 +413,31 @@
           <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
+      <option name="time" value="1" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/TelegramBot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="9" lean-forward="true" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Stock.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#398#953#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -465,68 +472,38 @@
     <entry file="file://D:/UnSleep.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_10.py" />
     <entry file="file://C:/Python37/Lib/site-packages/requests/adapters.py" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/Telegram_bot.py">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/Telegram_bot.py" />
+    <entry file="file://E:/OpenAiTest.py" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
+    <entry file="file://D:/Programs/Python/Python37-32/Scripts/epydoc.py" />
+    <entry file="file://$PROJECT_DIR$/Telegram_bot.py" />
+    <entry file="file://$PROJECT_DIR$/Stock_Analiser.py" />
+    <entry file="file://$PROJECT_DIR$/TelegramBot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/OpenAiTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="80" lean-forward="true" selection-start-line="7" selection-start-column="80" selection-end-line="7" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="4" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Programs/Python/Python37-32/Scripts/epydoc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Telegram_bot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="71" lean-forward="true" selection-start-line="12" selection-start-column="71" selection-end-line="12" selection-end-column="71" />
+        <state relative-caret-position="362">
+          <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Stock.py">
+    <entry file="file://$PROJECT_DIR$/StockAnaliser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+        <state>
           <folding>
-            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#19#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TelegramBot.py">
+    <entry file="file://$PROJECT_DIR$/Stock.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="23" column="9" lean-forward="true" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Stock_Analiser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="38" column="37" lean-forward="true" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
+        <state relative-caret-position="412">
+          <caret line="105" column="77" selection-start-line="105" selection-start-column="73" selection-end-line="105" selection-end-column="77" />
           <folding>
-            <element signature="e#20#35#0" expanded="true" />
-            <marker date="1536796408007" expanded="true" signature="988:990" ph="..." />
+            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#398#953#0" />
           </folding>
         </state>
       </provider>

@@ -40,7 +40,7 @@ class WebSocketThread(threading.Thread):
 
 
 def log_signal(signal):
-    log_file = open(LOG_PATH_MARKETS + "signals.txt", "a")
+    log_file = open(LOG_PATH_MARKETS + "signals.txt", "a+")
     log_file.write(str(datetime.datetime.now())+": "+str(signal)+"\n")
     log_file.close()
     print(signal)
@@ -48,7 +48,7 @@ def log_signal(signal):
 
 
 def log_error(error_msg):
-    log_file = open(LOG_PATH_PROGRAM + "errors.txt", "a")
+    log_file = open(LOG_PATH_PROGRAM + "errors.txt", "a+")
     log_file.write(str(datetime.datetime.now()) + ": " + str(error_msg) + "\n")
     log_file.close()
     print(error_msg)
@@ -103,7 +103,7 @@ class Market:
         return False
 
     def log_raw_data(self):
-        self.log_file = open(LOG_PATH_MARKETS + self.raw_data_file_name, "a")
+        self.log_file = open(LOG_PATH_MARKETS + self.raw_data_file_name, "a+")
         self.log_file.write(str(datetime.datetime.now().time())+","
                             + str(self.get_top_ask_order_rate())+","+str(self.get_top_ask_order_amount())+","
                             + str(self.get_top_bid_order_rate())+","+str(self.get_top_bid_order_amount())+","
