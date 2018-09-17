@@ -308,8 +308,11 @@ class Kraken(Stock):
             market.set_top_bid_order_timestamp(float(req_json["result"][currency1+currency2]['bids'][0][2]))
             return True
         else:
-            log_error("Kraken response:" + str(req.json()['error']))
-            return False
+            try:
+                log_error("Kraken error: " + str(req.json()['error']))
+            finally:
+                log_error("Kraken exception json: " + str(req.status_code) + ",raw: " + str(req.raw))
+                return False
 
 
 class QUOINE(Stock):
