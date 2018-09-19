@@ -1,5 +1,6 @@
 import json
 import requests
+import datetime
 
 
 class TelegramBot:
@@ -45,7 +46,8 @@ class TelegramBot:
         return chat_id
 
     def send_message(self, text):
-        url = self.url + "sendMessage?text={}&chat_id={}".format(text, self.chat_id)
+        url = self.url + "sendMessage?text={}&chat_id={}".format(str(datetime.datetime.now()) + ": " + "\n"
+                                                                 + text, self.chat_id)
         self.get_url(url)
 
 

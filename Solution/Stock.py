@@ -298,31 +298,25 @@ class Kraken(Stock):
         currency2 = market.get_currency2()
         try:
             req = requests.get('https://api.kraken.com/0/public/Depth?pair='+currency1+currency2+'&count=1')
-        except:
-            # requests.exceptions.ConnectionError: HTTPSConnectionPool(host='api.kraken.com', port=443):
-            # Max retries exceeded with url: /0/public/Depth?pair=XXBTZUSD&count=1 (Caused by NewConnectionError(
-            # '<urllib3.connection.VerifiedHTTPSConnection object at 0x031E5FF0>: Failed to establish a new connection:
-            # [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое
-            # время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже
-            # подключенного компьютера'))
-            log_error(str(req))
-            return False
-        if req.status_code == 200:
-            req_json = req.json()
-            # todo: 0001 on startup get dictionary for market trading pairs and alternative names like "XLTCZEUR"
-            market.set_top_ask_order_rate(float(req_json["result"][currency1+currency2]['asks'][0][0]))
-            market.set_top_bid_order_rate(float(req_json["result"][currency1+currency2]['bids'][0][0]))
-            market.set_top_ask_order_amount(float(req_json["result"][currency1+currency2]['asks'][0][1]))
-            market.set_top_bid_order_amount(float(req_json["result"][currency1+currency2]['bids'][0][1]))
-            market.set_top_ask_order_timestamp(float(req_json["result"][currency1+currency2]['asks'][0][2]))
-            market.set_top_bid_order_timestamp(float(req_json["result"][currency1+currency2]['bids'][0][2]))
-            return True
-        else:
-            try:
-                log_error("Kraken error: " + str(req.json()['error']))
-            finally:
-                log_error("Kraken exception json: " + str(req.status_code) + ",raw: " + str(req.raw))
+            if req.status_code == 200:
+                req_json = req.json()
+                # todo: 0001 on startup get dictionary for market trading pairs and alternative names like "XLTCZEUR"
+                market.set_top_ask_order_rate(float(req_json["result"][currency1+currency2]['asks'][0][0]))
+                market.set_top_bid_order_rate(float(req_json["result"][currency1+currency2]['bids'][0][0]))
+                market.set_top_ask_order_amount(float(req_json["result"][currency1+currency2]['asks'][0][1]))
+                market.set_top_bid_order_amount(float(req_json["result"][currency1+currency2]['bids'][0][1]))
+                market.set_top_ask_order_timestamp(float(req_json["result"][currency1+currency2]['asks'][0][2]))
+                market.set_top_bid_order_timestamp(float(req_json["result"][currency1+currency2]['bids'][0][2]))
+                return True
+            else:
+                log_error("Kraken status not 200, status code: " + str(req.status_code) + ",raw: " + str(req.raw))
                 return False
+        except KeyError:
+            log_error("Kraken KeyError exception, status code: " + str(req.status_code) + ",raw: " + str(req_json))
+            return False
+        except:
+            log_error("Kraken exception,status code: " + str(req.status_code) + ",raw: " + str(req.raw))
+            return False
 
 
 class QUOINE(Stock):
