@@ -92,9 +92,6 @@ class OrderBook:
             if float(item[0]) > self.best_bid_rate:
                 self.best_bid_rate = float(item[0])
                 self.best_bid_amount = float(item[1])
-                if self.debug:
-                    print("best bid: " + str(self.best_bid_rate))
-                    print("bb value: " + str(self.best_bid_amount))
 
     def set_ask_book(self, ab):
         self.ask_book = ab
@@ -117,9 +114,6 @@ class OrderBook:
             if float(item[0]) < self.best_ask_rate:
                 self.best_ask_rate = float(item[0])
                 self.best_ask_amount = float(item[1])
-                if self.debug:
-                    print("best ask: " + str(self.best_ask_rate))
-                    print("ba value: " + str(self.best_ask_amount))
 
     def add_ask_data(self, rate, amount):
         if type(rate) is not float:
@@ -131,7 +125,7 @@ class OrderBook:
             if item[0] == float(rate):
                 if amount == 0:
                     self.ask_book = self.ask_book[:ii]+self.ask_book[ii+1:]
-                    self.best_ask_rate = 0
+                    self.best_ask_rate = 999999999
                     self.best_ask_amount = 0
                     return True
                 else:
@@ -152,7 +146,7 @@ class OrderBook:
                 if amount == 0:
                     self.bid_book = self.bid_book[:ii]+self.bid_book[ii+1:]
                     self.best_bid_rate = 0
-                    self.best_bid_amount = 0 
+                    self.best_bid_amount = 0
                     return True
                 else:
                     self.bid_book[ii][1] = float(amount)
@@ -634,8 +628,10 @@ class CoinbaseGDAX(Stock):
 
                     if new_bid:
                         market.find_best_bid()
+                        print("bid: " + str(market.get_top_bid_order_rate()))
                     if new_ask:
                         market.find_best_ask()
+                        print("ask: " + str(market.get_top_ask_order_rate()))
 
                     # data['time'] = last update value
 
