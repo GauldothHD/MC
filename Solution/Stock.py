@@ -58,7 +58,108 @@ def log_error(error_msg):
     TelegramBot.TB.send_message(error_msg)
 
 
+# we hold top values on top and sort every update
+class OrderBook:
+
+    debug = True
+
+    bid_book = [[float, float]]
+    best_bid_rate = None
+    best_bid_amount = 0
+
+    ask_book = [[float, float]]
+    best_ask_rate = None
+    best_ask_amount = 0
+
+    def set_bid_book(self, bb):
+        self.bid_book = bb
+        self.find_best_bid()
+        return True
+
+    def get_best_bid_rate(self):
+        if self.best_bid_rate is None:
+            return False
+        return float(self.best_bid_rate)
+
+    def get_best_bid_amount(self):
+        return self.best_bid_amount
+
+    def find_best_bid(self):
+        if self.best_bid_rate is None:
+            self.best_bid_rate = float(self.bid_book[0][0])
+            self.best_bid_amount = float(self.bid_book[0][1])
+        for item in self.bid_book:
+            if float(item[0]) > self.best_bid_rate:
+                self.best_bid_rate = float(item[0])
+                self.best_bid_amount = float(item[1])
+                if self.debug:
+                    print("best bid: " + str(self.best_bid_rate))
+                    print("bb value: " + str(self.best_bid_amount))
+
+    def set_ask_book(self, ab):
+        self.ask_book = ab
+        self.find_best_ask()
+        return True
+
+    def get_best_ask_rate(self):
+        if self.best_ask_rate is None:
+            return False
+        return float(self.best_ask_rate)
+
+    def get_best_ask_amount(self):
+        return self.best_ask_amount
+
+    def find_best_ask(self):
+        if self.best_ask_rate is None:
+            self.best_ask_rate = float(self.ask_book[0][0])
+            self.best_ask_amount = float(self.ask_book[0][1])
+        for item in self.ask_book:
+            if float(item[0]) < self.best_ask_rate:
+                self.best_ask_rate = float(item[0])
+                self.best_ask_amount = float(item[1])
+                if self.debug:
+                    print("best ask: " + str(self.best_ask_rate))
+                    print("ba value: " + str(self.best_ask_amount))
+
+    def add_ask_data(self, rate, amount):
+        if type(rate) is not float:
+            raise TypeError("ONLY FLOAT rates")
+        if type(amount) is not float:
+            raise TypeError("ONLY FLOAT amounts")
+        ii = 0
+        for item in self.ask_book:
+            if item[0] == float(rate):
+                if amount == 0:
+                    self.ask_book = self.ask_book[:ii]+self.ask_book[ii+1:]
+                    return True
+                else:
+                    self.ask_book[ii][1] = float(amount)
+                    return True
+            ii = ii+1
+        self.ask_book.append([float(rate), float(amount)])
+        return False
+
+    def add_bid_data(self, rate, amount):
+        if type(rate) is not float:
+            raise TypeError("ONLY FLOAT rates")
+        if type(amount) is not float:
+            raise TypeError("ONLY FLOAT amounts")
+        ii = 0
+        for item in self.bid_book:
+            if item[0] == float(rate):
+                if amount == 0:
+                    self.bid_book = self.bid_book[:ii]+self.bid_book[ii+1:]
+                    return True
+                else:
+                    self.bid_book[ii][1] = float(amount)
+                    return True
+            ii = ii+1
+        self.bid_book.append([float(rate), float(amount)])
+        return False
+
+
 class Market:
+
     currency1 = ""
     currency2 = ""
 
@@ -77,8 +178,7 @@ class Market:
     top_bid_order_timestamp = 0
 
     stock_name = ""
-    buy_orders = []
-    sell_orders = []
+    order_book = None
     last_update = None
 
     # todo: check the flow of this variable is it needed?
@@ -92,6 +192,7 @@ class Market:
         self.taker_fee = stock_tacker_fee
         self.raw_data_file_name = stock_name + "_" + currency1 + "_" + currency2 + ".csv"
         self.init_log_file()
+        self.order_book = OrderBook()
 
     def get_market_definition(self):
         result = "Stock: " + self.stock_name + " traiding pair: " + self.currency1 + "/" + self.currency2
@@ -127,19 +228,21 @@ class Market:
 
     # getters:
     def get_top_ask_order_rate(self):
-        return float(self.top_ask_order_rate)
+        if self.order_book is None:
+            return 0
+        return float(self.order_book.get_best_ask_rate())
 
     def get_top_ask_order_taker_fee(self):
         return float(self.top_ask_order_taker_fee)
 
     def get_top_ask_order_amount(self):
-        return self.top_ask_order_amount
+        return float(self.order_book.get_best_ask_amount())
 
     def get_top_ask_order_timestamp(self):
         return self.top_ask_order_timestamp
 
     def get_top_bid_order_rate(self):
-        return float(self.top_bid_order_rate)
+        return float(self.order_book.get_best_bid_rate())
 
     def get_top_bid_order_taker_fee(self):
         return float(self.top_bid_order_taker_fee)
@@ -148,7 +251,7 @@ class Market:
         return self.top_bid_order_timestamp
 
     def get_top_bid_order_amount(self):
-        return self.top_bid_order_amount
+        return float(self.order_book.get_best_bid_amount())
 
     def get_currency1(self):
         return self.currency1
@@ -164,18 +267,22 @@ class Market:
 
     # setters:
     def set_top_ask_order_rate(self, value):
-        self.top_ask_order_rate = value
+        self.order_book.best_ask_rate = float(value)
+        # self.top_ask_order_rate = float(value)
         self.top_ask_order_taker_fee = float(value) * float(self.taker_fee)
 
     def set_top_bid_order_rate(self, value):
-        self.top_bid_order_rate = value
+        self.order_book.best_bid_rate = float(value)
+        # self.top_bid_order_rate = value
         self.top_bid_order_taker_fee = float(value) * float(self.taker_fee)
 
     def set_top_ask_order_amount(self, value):
-        self.top_ask_order_amount = value
+        self.order_book.best_ask_amount = float(value)
+        # self.top_ask_order_amount = value
 
     def set_top_bid_order_amount(self, value):
-        self.top_bid_order_amount = value
+        self.order_book.best_bid_amount = float(value)
+        #self.top_bid_order_amount = value
 
     def set_top_ask_order_timestamp(self, value):
         self.top_ask_order_timestamp = value
@@ -185,6 +292,12 @@ class Market:
 
     def set_response(self, value):
         self.response = value
+
+    def find_best_ask(self):
+        self.order_book.find_best_ask()
+
+    def find_best_bid(self):
+        self.order_book.find_best_bid()
 
 
 # general parent class
@@ -471,59 +584,57 @@ class CoinbaseGDAX(Stock):
             currency2 = market.get_currency2()
             async with websockets.connect(self.websocket_address) as websocket:
                 json_ticker_subscriber = json.dumps(
-                    {"type": "subscribe", "product_ids": [currency1 + "-" + currency2], "channels": ["ticker"]})
+                    {"type": "subscribe", "product_ids": [currency1 + "-" + currency2], "channels": ["level2"]})
                 if self.debug:
                     print("json_ticker_subscriber --> : "+json_ticker_subscriber)
                 await websocket.send(json_ticker_subscriber)
+                # initial info
                 info_json = await websocket.recv()
                 if self.debug:
                     print("info_json <--: "+info_json)
-                # receiving initial data
-                temp_str = info_json[info_json.find("best_bid") + 11:]
-                bid_rate = temp_str[:temp_str.find(",") - 1]
+                # receiving initial data:
+                data = json.loads(info_json)
                 if self.debug:
-                    print("bid_rate: " + bid_rate)
-                temp_str = info_json[info_json.find("best_ask") + 11:]
-                ask_rate = temp_str[:temp_str.find(",") - 1]
+                    print("bids:")
+                market.order_book.set_bid_book(data['bids'])
                 if self.debug:
-                    print("ask_rate: " + ask_rate)
-
-                market.set_top_bid_order_rate(bid_rate)
-                market.set_top_ask_order_rate(ask_rate)
-
+                    print("asks:")
+                market.order_book.set_ask_book(data['asks'])
+                # second subscriber:
                 subscribed_json = await websocket.recv()
                 if self.debug:
                     print("subscribed_json <--: " + subscribed_json)
                 while True:
+                    # changes:
                     update_json = await websocket.recv()
                     self.last_answer = update_json
                     if self.debug:
                         print("update_json: " + update_json)
-
-                    first_find = update_json[update_json.find("best_bid") + 11:]
-                    bid_rate = first_find[:first_find.find(",")-1]
+                    data = json.loads(update_json)
                     if self.debug:
-                        print("bid_rate: " + bid_rate)
+                        print(data)
+                    new_bid = False
+                    new_ask = False
+                    for item in data['changes']:
+                        if item[0] == "buy":
+                            # bid
+                            market.order_book.add_bid_data(float(item[1]), float(item[2]))
+                            new_bid = True
+                            if self.debug:
+                                print("New bid")
+                        if item[0] == "sell":
+                            market.order_book.add_ask_data(float(item[1]), float(item[2]))
+                            new_ask = True
+                            if self.debug:
+                                print("New ask")
 
-                    third_find = update_json[update_json.find("best_ask") + 11:]
-                    ask_rate = third_find[:third_find.find(",")-1]
-                    if self.debug:
-                        print("ask_rate: " + ask_rate)
+                    if new_bid:
+                        market.find_best_bid()
+                    if new_ask:
+                        market.find_best_ask()
 
-                    third_find = update_json[update_json.find("time") + 7:]
-                    timestamp = third_find[:third_find.find(",") - 1]
-                    if self.debug:
-                        print("timestamp: " + timestamp)
+                    # data['time'] = last update value
 
-                    time = timestamp[timestamp.find("T") + 1:]
-                    if self.debug:
-                        print("time: " + time)
-
-                    market.set_top_bid_order_rate(bid_rate)
-                    market.set_top_ask_order_rate(ask_rate)
-
-                    market.set_top_bid_order_timestamp(time)
-                    market.set_top_ask_order_timestamp(time)
         except websockets.exceptions.ConnectionClosed as exc:
             print(self.last_answer)
             log_error(str(datetime.datetime.now())+" "+self.stock_name + " error code: " + str(exc.code) + ", reason: "
