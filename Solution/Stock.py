@@ -5,11 +5,13 @@ import datetime
 import requests
 import websockets
 import TelegramBot
+import os
 
 CONST_CURRENCY_NAMES = ['ETH', 'BTC', 'LTC']
 
 LOG_PATH_MARKETS = "../output/markets_log/"
 LOG_PATH_PROGRAM = "../output/program_log/"
+OUTPUT_PATH = "../output/"
 
 
 class StockNames:
@@ -88,6 +90,7 @@ class Market:
         self.stock_name = stock_name
         self.taker_fee = stock_tacker_fee
         self.raw_data_file_name = stock_name + "_" + currency1 + "_" + currency2 + ".csv"
+        self.init_log_file()
 
     def get_market_definition(self):
         result = "Stock: " + self.stock_name + " traiding pair: " + self.currency1 + "/" + self.currency2
@@ -104,14 +107,24 @@ class Market:
         return False
 
     def log_raw_data(self):
+        # if file doesn't exist - create a folders and header
+
         self.log_file = open(LOG_PATH_MARKETS + self.raw_data_file_name, "a+")
         self.log_file.write(str(datetime.datetime.now().time())+","
                             + str(self.get_top_ask_order_rate())+","+str(self.get_top_ask_order_amount())+","
                             + str(self.get_top_bid_order_rate())+","+str(self.get_top_bid_order_amount())+","
                             + str(self.get_top_ask_order_timestamp())+","+str(self.get_top_bid_order_timestamp())+","
-                            + str(self.get_top_bid_order_timestamp())+","+str(self.get_top_bid_order_timestamp())+","
                             + str(self.get_top_ask_order_taker_fee())+","+str(self.get_top_bid_order_taker_fee())+"\n")
         self.log_file.close()
+
+    def init_log_file(self):
+        if not os.path.isfile(LOG_PATH_MARKETS + self.raw_data_file_name):
+            self.log_file = open(LOG_PATH_MARKETS + self.raw_data_file_name, "w+")
+            self.log_file.write("python time, top ask rate, top ask amount, top bid rate, top bid amount, ask time, "
+                                "bid time, ask taker fee, bid taker fee\n")
+            self.log_file.close()
+
+
 
     # getters:
     def get_top_ask_order_rate(self):
