@@ -81,6 +81,7 @@ class Market:
     sell_orders = []
     last_update = None
 
+    # todo: check the flow of this variable is it needed?
     response = "false"
 
     # functional:
@@ -123,8 +124,6 @@ class Market:
             self.log_file.write("python time, top ask rate, top ask amount, top bid rate, top bid amount, ask time, "
                                 "bid time, ask taker fee, bid taker fee\n")
             self.log_file.close()
-
-
 
     # getters:
     def get_top_ask_order_rate(self):
@@ -253,14 +252,18 @@ class Bittrex(Stock):
             log_error("Bittrex response:" + str(req.json()['message']))
             return False
 
-    def get_market_data(self, market):
+    @staticmethod
+    def get_market_data(market):
         currency1 = market.get_currency1()
         currency2 = market.get_currency2()
-        req = requests.get('https://bittrex.com/api/v1.1/public/getorderbook?market='+currency1+'-'+currency2+'&type=both')
+        req = requests.get('https://bittrex.com/api/v1.1/public/getorderbook?market=' + currency1 + '-' + currency2 +
+                           '&type=both')
         if req.json()['success']:
             # todo: need investigation on what means what (definitions)
-            market.set_top_ask_order_amount(req.json()["result"]["buy"][0]["Quantity"]*req.json()["result"]["buy"][0]["Rate"])
-            market.set_top_bid_order_amount(req.json()["result"]["sell"][0]["Quantity"]*req.json()["result"]["sell"][0]["Rate"])
+            market.set_top_ask_order_amount(req.json()["result"]["buy"][0]["Quantity"]*req.json()["result"]["buy"][0]
+                                            ["Rate"])
+            market.set_top_bid_order_amount(req.json()["result"]["sell"][0]["Quantity"]*req.json()["result"]["sell"][0]
+                                            ["Rate"])
             return True
         else:
             log_error("Bittrex response:" + str(req.json()['message']))
@@ -306,7 +309,8 @@ class Kraken(Stock):
         print("Asset alternative names:"+str(self.asset_pairs_alt_name))
         print("Assets :"+str(self.assets))
 
-    def get_ticker(self, market):
+    @staticmethod
+    def get_ticker(market):
         currency1 = market.get_currency1()
         currency2 = market.get_currency2()
         try:
@@ -325,7 +329,7 @@ class Kraken(Stock):
                 log_error("Kraken status not 200, status code: " + str(req.status_code) + ",raw: " + str(req.raw))
                 return False
         except KeyError:
-            log_error("Kraken KeyError exception, status code: " + str(req.status_code) + ",raw: " + str(req_json))
+            log_error("Kraken KeyError exception, status code: " + str(req.status_code) + ",raw: " + str(req.json()))
             return False
         except:
             log_error("Kraken exception,status code: " + str(req.status_code) + ",raw: " + str(req.raw))
@@ -345,7 +349,8 @@ class QUOINE(Stock):
         self.taker_fee_ETH = 0.0010  # 0.1% / 100
 
     # todo: create dynamic setter of this attribute(from the QUOINE API)! it is very important to the production run!!!
-    def get_prod_market_id(self):
+    @staticmethod
+    def get_prod_market_id():
         # currency1 = market.get_currency1()
         # currency2 = market.get_currency2()
         return 28
@@ -379,7 +384,8 @@ class Bitfinex(Stock):
         self.stock_name = "BITFINEX"
         self.min_margin = 0.0020  # custom set commission
 
-    def get_ticker(self, market):
+    @staticmethod
+    def get_ticker(market):
         currency1 = market.get_currency1()
         currency2 = market.get_currency2()
         try:
@@ -420,7 +426,7 @@ class Bitfinex(Stock):
 
                     forth_find = third_find[third_find.find(",")+1:]
                     ask_amount = forth_find[:forth_find.find(",")]
-                    # exception code recieved
+                    # exception code received
                     if bid_rate == "\"code\":20051":
                         log_signal("websocket: \"code\":20051")
                         await self.connect(market)
@@ -472,7 +478,7 @@ class CoinbaseGDAX(Stock):
                 info_json = await websocket.recv()
                 if self.debug:
                     print("info_json <--: "+info_json)
-                # recieving initial data
+                # receiving initial data
                 temp_str = info_json[info_json.find("best_bid") + 11:]
                 bid_rate = temp_str[:temp_str.find(",") - 1]
                 if self.debug:
