@@ -11,6 +11,7 @@ CONST_CURRENCY_NAMES = ['ETH', 'BTC', 'LTC']
 LOG_PATH_MARKETS = "../output/markets_log/"
 LOG_PATH_PROGRAM = "../output/program_log/"
 
+
 class StockNames:
     QUOINE = "QUOINE"
     TheRockTrading = "TheRockTrading"
@@ -40,7 +41,7 @@ class WebSocketThread(threading.Thread):
 
 
 def log_signal(signal):
-    log_file = open(LOG_PATH_MARKETS + "signals.txt", "a")
+    log_file = open(LOG_PATH_MARKETS + "signals.txt", "a+")
     log_file.write(str(datetime.datetime.now())+": "+str(signal)+"\n")
     log_file.close()
     print(signal)
@@ -48,7 +49,7 @@ def log_signal(signal):
 
 
 def log_error(error_msg):
-    log_file = open(LOG_PATH_PROGRAM + "errors.txt", "a")
+    log_file = open(LOG_PATH_PROGRAM + "errors.txt", "a+")
     log_file.write(str(datetime.datetime.now()) + ": " + str(error_msg) + "\n")
     log_file.close()
     print(error_msg)
@@ -103,7 +104,7 @@ class Market:
         return False
 
     def log_raw_data(self):
-        self.log_file = open(LOG_PATH_MARKETS + self.raw_data_file_name, "a")
+        self.log_file = open(LOG_PATH_MARKETS + self.raw_data_file_name, "a+")
         self.log_file.write(str(datetime.datetime.now().time())+","
                             + str(self.get_top_ask_order_rate())+","+str(self.get_top_ask_order_amount())+","
                             + str(self.get_top_bid_order_rate())+","+str(self.get_top_bid_order_amount())+","
@@ -266,7 +267,7 @@ class Kraken(Stock):
     def __init__(self):
         Stock.__init__(self)
         self.stock_name = "KRAKEN"
-        self.taker_fee = 0.0026  # custom set commision
+        self.taker_fee = 0.0026  # custom set commission
 
     def init_markets(self):
         req = requests.get('https://api.kraken.com/0/public/AssetPairs')
@@ -282,9 +283,9 @@ class Kraken(Stock):
             alt_name = req.json()['result'][asset_pair]['altname']
             self.asset_pairs_alt_name.append(alt_name)
         # self.add_market(currency1, currency2)
-        #self.assets.sort()
-        #self.asset_pairs.sort()
-        #self.asset_pairs_alt_name.sort()
+        # self.assets.sort()
+        # self.asset_pairs.sort()
+        # self.asset_pairs_alt_name.sort()
 
     def print_assets(self):
         print("Kraken available markets:")
@@ -295,19 +296,26 @@ class Kraken(Stock):
     def get_ticker(self, market):
         currency1 = market.get_currency1()
         currency2 = market.get_currency2()
-        req = requests.get('https://api.kraken.com/0/public/Depth?pair='+currency1+currency2+'&count=1')
-        if req.status_code == 200:
-            req_json = req.json()
-            # todo: 0001 on startup get dictionary for market trading pairs and alternative names like "XLTCZEUR"
-            market.set_top_ask_order_rate(float(req_json["result"][currency1+currency2]['asks'][0][0]))
-            market.set_top_bid_order_rate(float(req_json["result"][currency1+currency2]['bids'][0][0]))
-            market.set_top_ask_order_amount(float(req_json["result"][currency1+currency2]['asks'][0][1]))
-            market.set_top_bid_order_amount(float(req_json["result"][currency1+currency2]['bids'][0][1]))
-            market.set_top_ask_order_timestamp(float(req_json["result"][currency1+currency2]['asks'][0][2]))
-            market.set_top_bid_order_timestamp(float(req_json["result"][currency1+currency2]['bids'][0][2]))
-            return True
-        else:
-            log_error("Kraken response:" + str(req.json()['error']))
+        try:
+            req = requests.get('https://api.kraken.com/0/public/Depth?pair='+currency1+currency2+'&count=1')
+            if req.status_code == 200:
+                req_json = req.json()
+                # todo: 0001 on startup get dictionary for market trading pairs and alternative names like "XLTCZEUR"
+                market.set_top_ask_order_rate(float(req_json["result"][currency1+currency2]['asks'][0][0]))
+                market.set_top_bid_order_rate(float(req_json["result"][currency1+currency2]['bids'][0][0]))
+                market.set_top_ask_order_amount(float(req_json["result"][currency1+currency2]['asks'][0][1]))
+                market.set_top_bid_order_amount(float(req_json["result"][currency1+currency2]['bids'][0][1]))
+                market.set_top_ask_order_timestamp(float(req_json["result"][currency1+currency2]['asks'][0][2]))
+                market.set_top_bid_order_timestamp(float(req_json["result"][currency1+currency2]['bids'][0][2]))
+                return True
+            else:
+                log_error("Kraken status not 200, status code: " + str(req.status_code) + ",raw: " + str(req.raw))
+                return False
+        except KeyError:
+            log_error("Kraken KeyError exception, status code: " + str(req.status_code) + ",raw: " + str(req_json))
+            return False
+        except:
+            log_error("Kraken exception,status code: " + str(req.status_code) + ",raw: " + str(req.raw))
             return False
 
 
@@ -323,10 +331,10 @@ class QUOINE(Stock):
         # todo: don't forget about the business fact, that taker's fee is different for non-ETH trades
         self.taker_fee_ETH = 0.0010  # 0.1% / 100
 
+    # todo: create dynamic setter of this attribute(from the QUOINE API)! it is very important to the production run!!!
     def get_prod_market_id(self):
         # currency1 = market.get_currency1()
         # currency2 = market.get_currency2()
-        # todo: create dinamic setter of this attribute(from the QUOINE API)! it is very important to the production run!!!
         return 28
 
     def get_ticker(self, market):
@@ -346,18 +354,6 @@ class QUOINE(Stock):
             log_error(str(self.get_name()) + " response code:" + str(response.status_code))
             return False
 
-    # def get_market_data(self, market):
-        #request_address = "https://api.quoine.com/products/"+str(self.get_prod_market_id())
-        #response = requests.get(request_address)
-       # if response.status_code == 200:
-       #     # todo: need investigation on what means what (definitions)
-            response_json = response.json()
-      #      market.set_top_ask_order_amount(100)
-      #      market.set_top_bid_order_amount(100)
-     #       return True
-      #  else:
-     #       log_signal(str(self.get_name()) + " response:" + str(response.json()['message']))
-
 
 class Bitfinex(Stock):
 
@@ -368,7 +364,7 @@ class Bitfinex(Stock):
     def __init__(self):
         Stock.__init__(self)
         self.stock_name = "BITFINEX"
-        self.min_margin = 0.0020  # custom set commision
+        self.min_margin = 0.0020  # custom set commission
 
     def get_ticker(self, market):
         currency1 = market.get_currency1()
@@ -381,6 +377,7 @@ class Bitfinex(Stock):
             market.set_top_bid_order_rate(req_json["bids"][0]["price"])
             market.set_top_bid_order_amount(req_json["bids"][0]["amount"])
             return True
+        # todo: expand exception block
         except:
             log_error("Bitfinex exception:")
             return False
@@ -418,7 +415,7 @@ class Bitfinex(Stock):
                     market.set_top_bid_order_amount(bid_amount)
                     market.set_top_ask_order_rate(ask_rate)
                     market.set_top_ask_order_amount(ask_amount)
-                    #todo: timestamp isn't related to the ask or bid, but to the general update of the ticker
+                    # todo: timestamp isn't related to the ask or bid, but to the general update of the ticker
                     market.set_top_bid_order_timestamp(str(datetime.datetime.now().time()))
                     market.set_top_ask_order_timestamp(str(datetime.datetime.now().time()))
 
@@ -447,7 +444,7 @@ class CoinbaseGDAX(Stock):
     def __init__(self):
         Stock.__init__(self)
         self.stock_name = "COINBASE_GDAX"
-        self.taker_fee = 0.0030  # custom set commision
+        self.taker_fee = 0.0030  # custom set commission
 
     async def get_ticker_websocket(self, market):
         try:
@@ -544,10 +541,10 @@ class TheRockTrading(Stock):
         self.taker_fee = 0.0020  # 0.2% / 100
         self.taker_fee_ETH = None
 
+# todo: create dynamic setter of this attribute(from the QUOINE API)! it is very important to the production run!!!
     def get_prod_market_id(self):
         # currency1 = market.get_currency1()
         # currency2 = market.get_currency2()
-        # todo: create dinamic setter of this attribute(from the QUOINE API)! it is very important to the production run!!!
         return 28
 
     def get_ticker(self, market):

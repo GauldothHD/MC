@@ -95,7 +95,7 @@ def is_margin_between_markets(market1, market2):
 
 
 def log_signal(signal):
-    log_file = open(LOG_PATH_MARKETS + "signals.txt", "a")
+    log_file = open(LOG_PATH_MARKETS + "signals.txt", "a+")
     log_file.write(str(datetime.datetime.now())+": "+str(signal)+"\n")
     log_file.close()
     print(str(datetime.datetime.now())+": "+str(signal))
