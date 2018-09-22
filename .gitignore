@@ -1,5 +1,9 @@
 /output/
 /telegram_token.txt
+/Solution/classes.dot
+/Solution/classes.vcg
+/Solution/packages.dot
+/Solution/packages.vcg
 /Solution/venv3.7/
 /Solution/.idea/
 /Solution/.idea
