@@ -131,6 +131,8 @@ class OrderBook:
             if item[0] == float(rate):
                 if amount == 0:
                     self.ask_book = self.ask_book[:ii]+self.ask_book[ii+1:]
+                    self.best_ask_rate = 0
+                    self.best_ask_amount = 0
                     return True
                 else:
                     self.ask_book[ii][1] = float(amount)
@@ -149,6 +151,8 @@ class OrderBook:
             if item[0] == float(rate):
                 if amount == 0:
                     self.bid_book = self.bid_book[:ii]+self.bid_book[ii+1:]
+                    self.best_bid_rate = 0
+                    self.best_bid_amount = 0 
                     return True
                 else:
                     self.bid_book[ii][1] = float(amount)
