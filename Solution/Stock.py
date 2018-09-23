@@ -76,13 +76,26 @@ class OrderBook:
         self.find_best_bid()
         return True
 
+    def set_ask_book(self, ab):
+        self.ask_book = ab
+        self.find_best_ask()
+        return True
+
     def get_best_bid_rate(self):
         if self.best_bid_rate is None:
             return False
         return float(self.best_bid_rate)
 
+    def get_best_ask_rate(self):
+        if self.best_ask_rate is None:
+            return False
+        return float(self.best_ask_rate)
+
     def get_best_bid_amount(self):
         return self.best_bid_amount
+
+    def get_best_ask_amount(self):
+        return self.best_ask_amount
 
     def find_best_bid(self):
         if self.best_bid_rate is None:
@@ -93,19 +106,6 @@ class OrderBook:
                 self.best_bid_rate = float(item[0])
                 self.best_bid_amount = float(item[1])
 
-    def set_ask_book(self, ab):
-        self.ask_book = ab
-        self.find_best_ask()
-        return True
-
-    def get_best_ask_rate(self):
-        if self.best_ask_rate is None:
-            return False
-        return float(self.best_ask_rate)
-
-    def get_best_ask_amount(self):
-        return self.best_ask_amount
-
     def find_best_ask(self):
         if self.best_ask_rate is None:
             self.best_ask_rate = float(self.ask_book[0][0])
@@ -114,26 +114,6 @@ class OrderBook:
             if float(item[0]) < self.best_ask_rate:
                 self.best_ask_rate = float(item[0])
                 self.best_ask_amount = float(item[1])
-
-    def add_ask_data(self, rate, amount):
-        if type(rate) is not float:
-            raise TypeError("ONLY FLOAT rates")
-        if type(amount) is not float:
-            raise TypeError("ONLY FLOAT amounts")
-        ii = 0
-        for item in self.ask_book:
-            if item[0] == float(rate):
-                if amount == 0:
-                    self.ask_book = self.ask_book[:ii]+self.ask_book[ii+1:]
-                    self.best_ask_rate = 999999999
-                    self.best_ask_amount = 0
-                    return True
-                else:
-                    self.ask_book[ii][1] = float(amount)
-                    return True
-            ii = ii+1
-        self.ask_book.append([float(rate), float(amount)])
-        return False
 
     def add_bid_data(self, rate, amount):
         if type(rate) is not float:
@@ -144,15 +124,41 @@ class OrderBook:
         for item in self.bid_book:
             if item[0] == float(rate):
                 if amount == 0:
+                    # removed
                     self.bid_book = self.bid_book[:ii]+self.bid_book[ii+1:]
                     self.best_bid_rate = 0
                     self.best_bid_amount = 0
                     return True
                 else:
+                    # changed
                     self.bid_book[ii][1] = float(amount)
                     return True
             ii = ii+1
+        # new
         self.bid_book.append([float(rate), float(amount)])
+        return False
+
+    def add_ask_data(self, rate, amount):
+        if type(rate) is not float:
+            raise TypeError("ONLY FLOAT rates")
+        if type(amount) is not float:
+            raise TypeError("ONLY FLOAT amounts")
+        ii = 0
+        for item in self.ask_book:
+            if item[0] == float(rate):
+                if amount == 0:
+                    # removed
+                    self.ask_book = self.ask_book[:ii]+self.ask_book[ii+1:]
+                    self.best_ask_rate = 999999999
+                    self.best_ask_amount = 0
+                    return True
+                else:
+                    # changed
+                    self.ask_book[ii][1] = float(amount)
+                    return True
+            ii = ii+1
+        # new
+        self.ask_book.append([float(rate), float(amount)])
         return False
 
 
@@ -165,14 +171,10 @@ class Market:
     raw_data_file_name = ""
     log_file = None
 
-    top_ask_order_rate: float = 0
     top_ask_order_taker_fee: float = 0
-    top_ask_order_amount = 0
     top_ask_order_timestamp = 0
 
-    top_bid_order_rate: float = 0
     top_bid_order_taker_fee: float = 0
-    top_bid_order_amount = 0
     top_bid_order_timestamp = 0
 
     stock_name = ""
@@ -191,11 +193,6 @@ class Market:
         self.raw_data_file_name = stock_name + "_" + currency1 + "_" + currency2 + ".csv"
         self.init_log_file()
         self.order_book = OrderBook()
-
-    def get_market_definition(self):
-        result = "Stock: " + self.stock_name + " traiding pair: " + self.currency1 + "/" + self.currency2
-        result = result + "\n    Ask: " + str(self.top_ask_order_rate) + " Bid: " + str(self.top_bid_order_rate)
-        return result
 
     def get_market_name(self):
         return self.get_stock_name()+":"+self.get_currency1()+"/"+self.get_currency2()
@@ -313,10 +310,6 @@ class Stock:
         new_market = Market(currency1, currency2, self.get_name(), self.get_taker_fee())
         self.market_list.append(new_market)
         return new_market
-
-    def print_markets_info(self):
-        for market in self.market_list:
-            print(market.get_market_definition())
 
     def get_market(self, currency1, currency2):
         for market in self.market_list:
@@ -586,54 +579,43 @@ class CoinbaseGDAX(Stock):
                 if self.debug:
                     print("json_ticker_subscriber --> : "+json_ticker_subscriber)
                 await websocket.send(json_ticker_subscriber)
-                # initial info
-                info_json = await websocket.recv()
-                if self.debug:
-                    print("info_json <--: "+info_json)
-                # receiving initial data:
-                data = json.loads(info_json)
-                if self.debug:
-                    print("bids:")
-                market.order_book.set_bid_book(data['bids'])
-                if self.debug:
-                    print("asks:")
-                market.order_book.set_ask_book(data['asks'])
-                # second subscriber:
-                subscribed_json = await websocket.recv()
-                if self.debug:
-                    print("subscribed_json <--: " + subscribed_json)
                 while True:
-                    # changes:
-                    update_json = await websocket.recv()
-                    self.last_answer = update_json
+                    # initial info
+                    response_json = await websocket.recv()
                     if self.debug:
-                        print("update_json: " + update_json)
-                    data = json.loads(update_json)
-                    if self.debug:
-                        print(data)
-                    new_bid = False
-                    new_ask = False
-                    for item in data['changes']:
-                        if item[0] == "buy":
-                            # bid
-                            market.order_book.add_bid_data(float(item[1]), float(item[2]))
-                            new_bid = True
-                            if self.debug:
-                                print("New bid")
-                        if item[0] == "sell":
-                            market.order_book.add_ask_data(float(item[1]), float(item[2]))
-                            new_ask = True
-                            if self.debug:
-                                print("New ask")
+                        self.last_answer = response_json
+                        print("info_json <--: "+response_json)
+                    data = json.loads(response_json)
 
-                    if new_bid:
-                        market.find_best_bid()
-                        print("bid: " + str(market.get_top_bid_order_rate()))
-                    if new_ask:
-                        market.find_best_ask()
-                        print("ask: " + str(market.get_top_ask_order_rate()))
+                    if data['type'] == "snapshot":
+                        # load the snapshot of data
+                        market.order_book.set_bid_book(data['bids'])
+                        market.order_book.set_ask_book(data['asks'])
+                        continue
 
-                    # data['time'] = last update value
+                    if data['type'] == "subscriptions":
+                        # shows current subscriptions
+                        continue
+
+                    if data['type'] == "l2update":
+                        # update order book
+                        new_bid = False
+                        new_ask = False
+                        for item in data['changes']:
+                            if item[0] == "buy":
+                                # bid
+                                market.order_book.add_bid_data(float(item[1]), float(item[2]))
+                                new_bid = True
+                            if item[0] == "sell":
+                                # ask
+                                market.order_book.add_ask_data(float(item[1]), float(item[2]))
+                                new_ask = True
+                        if new_bid:
+                            market.find_best_bid()
+                        if new_ask:
+                            market.find_best_ask()
+                        # data['time'] = last update value
+                        continue
 
         except websockets.exceptions.ConnectionClosed as exc:
             print(self.last_answer)
