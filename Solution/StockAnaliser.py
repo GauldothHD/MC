@@ -5,14 +5,12 @@ import asyncio
 import threading
 import TelegramBot
 import Stock
+#import Market
 import os
+from Config import Config
 
 WEBSOCKET_ON = True
 REST_ON = True
-LOG_PATH_MARKETS = "../output/markets_log/"
-LOG_PATH_PROGRAM = "../output/program_log/"
-VERY_SMALL_POSITIVE_NUMBER = 0.0000000001
-OUTPUT_PATH = "../output/"
 
 activeStocks = []
 
@@ -71,8 +69,8 @@ def is_margin_between_markets(market1, market2):
         margin = m2_top_bid_order_rate - m1_top_ask_order_rate - m2_top_bid_order_taker_fee - m1_top_ask_order_taker_fee
         operational_amount = m1_top_ask_order_rate + m1_top_ask_order_taker_fee + \
                              m2_top_bid_order_rate + m2_top_bid_order_taker_fee
-        margin_to_amount_ratio = margin / (operational_amount + VERY_SMALL_POSITIVE_NUMBER)
-        margin_to_coin_price_ratio = margin / (m1_top_ask_order_rate + VERY_SMALL_POSITIVE_NUMBER)
+        margin_to_amount_ratio = margin / (operational_amount + Config.VERY_SMALL_POSITIVE_NUMBER)
+        margin_to_coin_price_ratio = margin / (m1_top_ask_order_rate + Config.VERY_SMALL_POSITIVE_NUMBER)
         m2_amount = float(market2.get_top_bid_order_amount())
         m1_amount = float(market1.get_top_ask_order_amount())
         trade_amount = min(m1_amount, m2_amount)
@@ -85,8 +83,8 @@ def is_margin_between_markets(market1, market2):
         margin = m1_top_bid_order_rate - m2_top_ask_order_rate - m2_top_ask_order_taker_fee - m1_top_bid_order_taker_fee
         operational_amount = m2_top_ask_order_rate + m2_top_ask_order_taker_fee + \
                              m1_top_bid_order_rate + m1_top_bid_order_taker_fee
-        margin_to_amount_ratio = margin/(operational_amount + VERY_SMALL_POSITIVE_NUMBER)
-        margin_to_coin_price_ratio = margin/(m2_top_ask_order_rate + VERY_SMALL_POSITIVE_NUMBER)
+        margin_to_amount_ratio = margin/(operational_amount + Config.VERY_SMALL_POSITIVE_NUMBER)
+        margin_to_coin_price_ratio = margin/(m2_top_ask_order_rate + Config.VERY_SMALL_POSITIVE_NUMBER)
         m2_amount = float(market2.get_top_ask_order_amount())
         m1_amount = float(market1.get_top_bid_order_amount())
         trade_amount = min(m1_amount, m2_amount)
@@ -98,7 +96,7 @@ def is_margin_between_markets(market1, market2):
 
 
 def log_signal(signal):
-    log_file = open(LOG_PATH_MARKETS + "signals.txt", "a+")
+    log_file = open(Config.LOG_PATH_MARKETS + "signals.txt", "a+")
     log_file.write(str(datetime.datetime.now())+": "+str(signal)+"\n")
     log_file.close()
     print(str(datetime.datetime.now())+": "+str(signal))
@@ -131,12 +129,12 @@ def gather_info(active_stocks):
 
 
 def init_folders():
-    if not os.path.isdir(OUTPUT_PATH):
-        os.makedirs(OUTPUT_PATH)
-    if not os.path.isdir(LOG_PATH_MARKETS):
-        os.makedirs(LOG_PATH_MARKETS)
-    if not os.path.isdir(LOG_PATH_PROGRAM):
-        os.makedirs(LOG_PATH_PROGRAM)
+    if not os.path.isdir(Config.OUTPUT_PATH):
+        os.makedirs(Config.OUTPUT_PATH)
+    if not os.path.isdir(Config.LOG_PATH_MARKETS):
+        os.makedirs(Config.LOG_PATH_MARKETS)
+    if not os.path.isdir(Config.LOG_PATH_PROGRAM):
+        os.makedirs(Config.LOG_PATH_PROGRAM)
 
 # main here
 

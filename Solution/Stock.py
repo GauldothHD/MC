@@ -5,13 +5,8 @@ import datetime
 import requests
 import websockets
 import TelegramBot
-import os
-
-CONST_CURRENCY_NAMES = ['ETH', 'BTC', 'LTC']
-
-LOG_PATH_MARKETS = "../output/markets_log/"
-LOG_PATH_PROGRAM = "../output/program_log/"
-OUTPUT_PATH = "../output/"
+from Market import Market
+from Config import Config
 
 
 class StockNames:
@@ -43,7 +38,7 @@ class WebSocketThread(threading.Thread):
 
 
 def log_signal(signal):
-    log_file = open(LOG_PATH_MARKETS + "signals.txt", "a+")
+    log_file = open(Config.LOG_PATH_MARKETS + "signals.txt", "a+")
     log_file.write(str(datetime.datetime.now())+": "+str(signal)+"\n")
     log_file.close()
     print(signal)
@@ -51,248 +46,11 @@ def log_signal(signal):
 
 
 def log_error(error_msg):
-    log_file = open(LOG_PATH_PROGRAM + "errors.txt", "a+")
+    log_file = open(Config.LOG_PATH_PROGRAM + "errors.txt", "a+")
     log_file.write(str(datetime.datetime.now()) + ": " + str(error_msg) + "\n")
     log_file.close()
     print(error_msg)
     TelegramBot.TB.send_message(error_msg)
-
-
-# we hold top values on top and sort every update
-class OrderBook:
-
-    debug = True
-
-    bid_book = [[float, float]]
-    best_bid_rate = None
-    best_bid_amount = 0
-
-    ask_book = [[float, float]]
-    best_ask_rate = None
-    best_ask_amount = 0
-
-    def set_bid_book(self, bb):
-        self.bid_book = bb
-        self.find_best_bid()
-        return True
-
-    def set_ask_book(self, ab):
-        self.ask_book = ab
-        self.find_best_ask()
-        return True
-
-    def get_best_bid_rate(self):
-        if self.best_bid_rate is None:
-            return False
-        return float(self.best_bid_rate)
-
-    def get_best_ask_rate(self):
-        if self.best_ask_rate is None:
-            return False
-        return float(self.best_ask_rate)
-
-    def get_best_bid_amount(self):
-        return self.best_bid_amount
-
-    def get_best_ask_amount(self):
-        return self.best_ask_amount
-
-    def find_best_bid(self):
-        if self.best_bid_rate is None:
-            self.best_bid_rate = float(self.bid_book[0][0])
-            self.best_bid_amount = float(self.bid_book[0][1])
-        for item in self.bid_book:
-            if float(item[0]) > self.best_bid_rate:
-                self.best_bid_rate = float(item[0])
-                self.best_bid_amount = float(item[1])
-
-    def find_best_ask(self):
-        if self.best_ask_rate is None:
-            self.best_ask_rate = float(self.ask_book[0][0])
-            self.best_ask_amount = float(self.ask_book[0][1])
-        for item in self.ask_book:
-            if float(item[0]) < self.best_ask_rate:
-                self.best_ask_rate = float(item[0])
-                self.best_ask_amount = float(item[1])
-
-    def add_bid_data(self, rate, amount):
-        if type(rate) is not float:
-            raise TypeError("ONLY FLOAT rates")
-        if type(amount) is not float:
-            raise TypeError("ONLY FLOAT amounts")
-        ii = 0
-        for item in self.bid_book:
-            if item[0] == float(rate):
-                if amount == 0:
-                    # removed
-                    self.bid_book = self.bid_book[:ii]+self.bid_book[ii+1:]
-                    self.best_bid_rate = 0
-                    self.best_bid_amount = 0
-                    return True
-                else:
-                    # changed
-                    self.bid_book[ii][1] = float(amount)
-                    return True
-            ii = ii+1
-        # new
-        self.bid_book.append([float(rate), float(amount)])
-        return False
-
-    def add_ask_data(self, rate, amount):
-        if type(rate) is not float:
-            raise TypeError("ONLY FLOAT rates")
-        if type(amount) is not float:
-            raise TypeError("ONLY FLOAT amounts")
-        ii = 0
-        for item in self.ask_book:
-            if item[0] == float(rate):
-                if amount == 0:
-                    # removed
-                    self.ask_book = self.ask_book[:ii]+self.ask_book[ii+1:]
-                    self.best_ask_rate = 999999999
-                    self.best_ask_amount = 0
-                    return True
-                else:
-                    # changed
-                    self.ask_book[ii][1] = float(amount)
-                    return True
-            ii = ii+1
-        # new
-        self.ask_book.append([float(rate), float(amount)])
-        return False
-
-
-class Market:
-
-    currency1 = ""
-    currency2 = ""
-
-    taker_fee: float = 0.0
-    raw_data_file_name = ""
-    log_file = None
-
-    top_ask_order_taker_fee: float = 0
-    top_ask_order_timestamp = 0
-
-    top_bid_order_taker_fee: float = 0
-    top_bid_order_timestamp = 0
-
-    stock_name = ""
-    order_book = None
-    last_update = None
-
-    # todo: check the flow of this variable is it needed?
-    response = "false"
-
-    # functional:
-    def __init__(self, currency1, currency2, stock_name, stock_tacker_fee):
-        self.currency1 = currency1
-        self.currency2 = currency2
-        self.stock_name = stock_name
-        self.taker_fee = stock_tacker_fee
-        self.raw_data_file_name = stock_name + "_" + currency1 + "_" + currency2 + ".csv"
-        self.init_log_file()
-        self.order_book = OrderBook()
-
-    def get_market_name(self):
-        return self.get_stock_name()+":"+self.get_currency1()+"/"+self.get_currency2()
-
-    def check_market(self, currency1, currency2):
-        if (self.currency1 == currency1)or(self.currency2 == currency1):
-            if (self.currency1 == currency2) or (self.currency2 == currency2):
-                return True
-        return False
-
-    def log_raw_data(self):
-        # if file doesn't exist - create a folders and header
-
-        self.log_file = open(LOG_PATH_MARKETS + self.raw_data_file_name, "a+")
-        self.log_file.write(str(datetime.datetime.now().time())+","
-                            + str(self.get_top_ask_order_rate())+","+str(self.get_top_ask_order_amount())+","
-                            + str(self.get_top_bid_order_rate())+","+str(self.get_top_bid_order_amount())+","
-                            + str(self.get_top_ask_order_timestamp())+","+str(self.get_top_bid_order_timestamp())+","
-                            + str(self.get_top_ask_order_taker_fee())+","+str(self.get_top_bid_order_taker_fee())+"\n")
-        self.log_file.close()
-
-    def init_log_file(self):
-        if not os.path.isfile(LOG_PATH_MARKETS + self.raw_data_file_name):
-            self.log_file = open(LOG_PATH_MARKETS + self.raw_data_file_name, "w+")
-            self.log_file.write("python time, top ask rate, top ask amount, top bid rate, top bid amount, ask time, "
-                                "bid time, ask taker fee, bid taker fee\n")
-            self.log_file.close()
-
-    # getters:
-    def get_top_ask_order_rate(self):
-        if self.order_book is None:
-            return 0
-        return float(self.order_book.get_best_ask_rate())
-
-    def get_top_ask_order_taker_fee(self):
-        return float(self.top_ask_order_taker_fee)
-
-    def get_top_ask_order_amount(self):
-        return float(self.order_book.get_best_ask_amount())
-
-    def get_top_ask_order_timestamp(self):
-        return self.top_ask_order_timestamp
-
-    def get_top_bid_order_rate(self):
-        return float(self.order_book.get_best_bid_rate())
-
-    def get_top_bid_order_taker_fee(self):
-        return float(self.top_bid_order_taker_fee)
-
-    def get_top_bid_order_timestamp(self):
-        return self.top_bid_order_timestamp
-
-    def get_top_bid_order_amount(self):
-        return float(self.order_book.get_best_bid_amount())
-
-    def get_currency1(self):
-        return self.currency1
-
-    def get_currency2(self):
-        return self.currency2
-
-    def get_stock_name(self):
-        return self.stock_name
-
-    def get_response(self):
-        return self.response
-
-    # setters:
-    def set_top_ask_order_rate(self, value):
-        self.order_book.best_ask_rate = float(value)
-        # self.top_ask_order_rate = float(value)
-        self.top_ask_order_taker_fee = float(value) * float(self.taker_fee)
-
-    def set_top_bid_order_rate(self, value):
-        self.order_book.best_bid_rate = float(value)
-        # self.top_bid_order_rate = value
-        self.top_bid_order_taker_fee = float(value) * float(self.taker_fee)
-
-    def set_top_ask_order_amount(self, value):
-        self.order_book.best_ask_amount = float(value)
-        # self.top_ask_order_amount = value
-
-    def set_top_bid_order_amount(self, value):
-        self.order_book.best_bid_amount = float(value)
-        #self.top_bid_order_amount = value
-
-    def set_top_ask_order_timestamp(self, value):
-        self.top_ask_order_timestamp = value
-
-    def set_top_bid_order_timestamp(self, value):
-        self.top_bid_order_timestamp = value
-
-    def set_response(self, value):
-        self.response = value
-
-    def find_best_ask(self):
-        self.order_book.find_best_ask()
-
-    def find_best_bid(self):
-        self.order_book.find_best_bid()
 
 
 # general parent class
@@ -577,7 +335,7 @@ class CoinbaseGDAX(Stock):
                 json_ticker_subscriber = json.dumps(
                     {"type": "subscribe", "product_ids": [currency1 + "-" + currency2], "channels": ["level2"]})
                 if self.debug:
-                    print("json_ticker_subscriber --> : "+json_ticker_subscriber)
+                    print("json_ticker_subscriber --> : " + json_ticker_subscriber)
                 await websocket.send(json_ticker_subscriber)
                 while True:
                     # initial info
@@ -598,6 +356,7 @@ class CoinbaseGDAX(Stock):
                         continue
 
                     if data['type'] == "l2update":
+                        # todo: change logic over here
                         # update order book
                         new_bid = False
                         new_ask = False
