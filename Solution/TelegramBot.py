@@ -10,7 +10,7 @@ class TelegramBot:
     chat_id = ""
 
     def __init__(self):
-        self.token = open('../telegram_token.txt', 'r').read()
+        self.token = open('../telegram_token_test.txt', 'r').read()
         self.url = "https://api.telegram.org/bot{}/".format(self.token)
         self.chat_id = self.get_last_chat_id(self.get_updates())
 
