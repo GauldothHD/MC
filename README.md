@@ -1,6 +1,9 @@
 # MC
 To do list:
 
+data at GDAX is not updating anymore
+
+
 <s>1. Remove soundThread as redundand due to the implementation of Telegram notifications.</s>
 
 3 Improve signal monitoring service to better keep track of signal's progress through it's lifetime (signal raising, same, signal lowering, signal direction).
@@ -14,3 +17,4 @@ To do list:
 5 Come through todo's inserted in the code.
 
 5 Rework structure with help of UML designing tools.
+
