@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="053e54f1-8662-4da0-89f3-660fade47c5a" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/CoinbaseAPI.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Logger.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OrderBook.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Custom analytics/ROI.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Custom analytics/ROI.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/Logger.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Stock.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stock.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StockAnaliser.py" beforeDir="false" afterPath="$PROJECT_DIR$/StockAnaliser.py" afterDir="false" />
     </list>
@@ -86,12 +83,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="492" />
+          <entry key="py" value="578" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="471" />
+          <entry key="Python" value="557" />
           <entry key="Scratch" value="21" />
         </counts>
       </usages-collector>
@@ -102,7 +99,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TelegramBot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-64">
+            <state relative-caret-position="224">
               <caret line="14" column="64" selection-start-line="14" selection-start-column="64" selection-end-line="14" selection-end-column="64" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -111,11 +108,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Logger.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-243">
+              <caret line="12" column="43" lean-forward="true" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Stock.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="85" column="20" selection-start-line="85" selection-start-column="15" selection-end-line="85" selection-end-column="20" />
+            <state relative-caret-position="112">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
                 <element signature="e#309#364#0" />
@@ -126,13 +135,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Logger.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/StockAnaliser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="25" column="33" lean-forward="true" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
+            <state relative-caret-position="432">
+              <caret line="95" lean-forward="true" selection-start-line="95" selection-end-line="95" />
               <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#19#34#0" expanded="true" />
+                <element signature="e#2241#5671#0" />
               </folding>
             </state>
           </provider>
@@ -157,21 +167,6 @@
               <caret line="10" column="32" lean-forward="true" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
               <folding>
                 <marker date="1556031169463" expanded="true" signature="98:99" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/StockAnaliser.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1072">
-              <caret line="120" column="15" lean-forward="true" selection-start-line="120" selection-start-column="15" selection-end-line="120" selection-end-column="15" />
-              <folding>
-                <element signature="e#19#34#0" expanded="true" />
-                <element signature="e#1328#2185#0" />
-                <element signature="e#2241#5671#0" />
-                <element signature="e#5702#5946#0" />
               </folding>
             </state>
           </provider>
@@ -241,11 +236,11 @@
         <option value="$PROJECT_DIR$/TelegramBot.py" />
         <option value="$PROJECT_DIR$/Stock_Analiser.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py" />
-        <option value="$PROJECT_DIR$/StockAnaliser.py" />
         <option value="$PROJECT_DIR$/OrderBook.py" />
         <option value="$PROJECT_DIR$/CoinbaseAPI.py" />
-        <option value="$PROJECT_DIR$/Logger.py" />
         <option value="$PROJECT_DIR$/Stock.py" />
+        <option value="$PROJECT_DIR$/Logger.py" />
+        <option value="$PROJECT_DIR$/StockAnaliser.py" />
       </list>
     </option>
   </component>
@@ -484,8 +479,8 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.15335868" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49947312" weight="0.3264642" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.47945204" visible="true" weight="0.28838453" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" sideWeight="0.49947312" visible="true" weight="0.3257677" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.47945204" weight="0.28838453" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49809885" weight="0.39783493" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -572,16 +567,6 @@
     <entry file="file://D:/Programs/Python/Python37-32/Scripts/epydoc.py" />
     <entry file="file://$PROJECT_DIR$/Telegram_bot.py" />
     <entry file="file://$PROJECT_DIR$/Stock_Analiser.py" />
-    <entry file="file://$PROJECT_DIR$/TelegramBot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-64">
-          <caret line="14" column="64" selection-start-line="14" selection-start-column="64" selection-end-line="14" selection-end-column="64" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="32">
@@ -589,25 +574,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OrderBook.py">
+    <entry file="file://$PROJECT_DIR$/TelegramBot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="10" column="32" lean-forward="true" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
+        <state relative-caret-position="224">
+          <caret line="14" column="64" selection-start-line="14" selection-start-column="64" selection-end-line="14" selection-end-column="64" />
           <folding>
-            <marker date="1556031169463" expanded="true" signature="98:99" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StockAnaliser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1072">
-          <caret line="120" column="15" lean-forward="true" selection-start-line="120" selection-start-column="15" selection-end-line="120" selection-end-column="15" />
-          <folding>
-            <element signature="e#19#34#0" expanded="true" />
-            <element signature="e#1328#2185#0" />
-            <element signature="e#2241#5671#0" />
-            <element signature="e#5702#5946#0" />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -622,25 +594,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Logger.py">
+    <entry file="file://$PROJECT_DIR$/OrderBook.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="25" column="33" lean-forward="true" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
+        <state relative-caret-position="160">
+          <caret line="10" column="32" lean-forward="true" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <marker date="1556031169463" expanded="true" signature="98:99" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Stock.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="85" column="20" selection-start-line="85" selection-start-column="15" selection-end-line="85" selection-end-column="20" />
+        <state relative-caret-position="112">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
             <element signature="e#309#364#0" />
             <element signature="e#436#991#0" />
             <element signature="e#5978#7064#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Logger.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-243">
+          <caret line="12" column="43" lean-forward="true" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StockAnaliser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="95" lean-forward="true" selection-start-line="95" selection-end-line="95" />
+          <folding>
+            <element signature="e#19#34#0" expanded="true" />
+            <element signature="e#2241#5671#0" />
           </folding>
         </state>
       </provider>

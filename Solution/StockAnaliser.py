@@ -5,14 +5,12 @@ import asyncio
 import threading
 import TelegramBot
 import Stock
-import os
+import Logger
 
 WEBSOCKET_ON = True
 REST_ON = True
-LOG_PATH_MARKETS = "../output/markets_log/"
-LOG_PATH_PROGRAM = "../output/program_log/"
 VERY_SMALL_POSITIVE_NUMBER = 0.0000000001
-OUTPUT_PATH = "../output/"
+
 
 activeStocks = []
 
@@ -44,16 +42,16 @@ class WebSocketThread(threading.Thread):
 def print_trade_info(crypto_currency, fiat_currency, buy_stock_name, sell_stock_name, stock_buy_crypto_rate,
                      stock_sell_crypto_rate, trade_amount, trade_value, trade_profit, margin, operational_amount,
                      margin_to_amount_ratio, margin_to_coin_price_ratio):
-    log_signal("\nBuy " + crypto_currency + " at " + buy_stock_name + " for " + str(stock_buy_crypto_rate) +
-               " " + fiat_currency +
-               "; Sell at " + sell_stock_name + " for " + str(stock_sell_crypto_rate) + " " + fiat_currency +
-               "\n   Trade amount: " + str(trade_amount) + " " + crypto_currency +
-               "\n   Trade value: " + str(trade_value) + " " + fiat_currency +
-               "\n   Trade profit: " + str(trade_profit) + " " + fiat_currency +
-               "\n   Calculations for 1 coin: \n   *  margin rate: " + str(margin) + " " + fiat_currency +
-               "\n   *  operational amount: " + str(operational_amount) + " " + fiat_currency +
-               "\n   *  margin/amount: " + str(margin_to_amount_ratio) + " %\n   *  margin/coin_price: " +
-               str(margin_to_coin_price_ratio)+"\n")
+    Logger.log_signal("\nBuy " + crypto_currency + " at " + buy_stock_name + " for " + str(stock_buy_crypto_rate) +
+                      " " + fiat_currency +
+                      "; Sell at " + sell_stock_name + " for " + str(stock_sell_crypto_rate) + " " + fiat_currency +
+                      "\n   Trade amount: " + str(trade_amount) + " " + crypto_currency +
+                      "\n   Trade value: " + str(trade_value) + " " + fiat_currency +
+                      "\n   Trade profit: " + str(trade_profit) + " " + fiat_currency +
+                      "\n   Calculations for 1 coin: \n   *  margin rate: " + str(margin) + " " + fiat_currency +
+                      "\n   *  operational amount: " + str(operational_amount) + " " + fiat_currency +
+                      "\n   *  margin/amount: " + str(margin_to_amount_ratio) + " %\n   *  margin/coin_price: " +
+                      str(margin_to_coin_price_ratio)+"\n")
 
 
 def is_margin_between_markets(market1, market2):
@@ -97,14 +95,6 @@ def is_margin_between_markets(market1, market2):
                          margin=margin, operational_amount=operational_amount, margin_to_amount_ratio=margin_to_amount_ratio, margin_to_coin_price_ratio=margin_to_coin_price_ratio)
 
 
-def log_signal(signal):
-    log_file = open(LOG_PATH_MARKETS + "signals.txt", "a+")
-    log_file.write(str(datetime.datetime.now())+": "+str(signal)+"\n")
-    log_file.close()
-    print(str(datetime.datetime.now())+": "+str(signal))
-    TelegramBot.TB.send_message(signal)
-
-
 def gather_info(active_stocks):
     group_response = True
     # todo: move to the separate threads
@@ -129,19 +119,10 @@ def gather_info(active_stocks):
     else:
         return True
 
-
-def init_folders():
-    if not os.path.isdir(OUTPUT_PATH):
-        os.makedirs(OUTPUT_PATH)
-    if not os.path.isdir(LOG_PATH_MARKETS):
-        os.makedirs(LOG_PATH_MARKETS)
-    if not os.path.isdir(LOG_PATH_PROGRAM):
-        os.makedirs(LOG_PATH_PROGRAM)
-
 # main here
 
 
-init_folders()
+Logger.init_folders()
 
 # Bitfinex init:
 
@@ -216,4 +197,4 @@ while REST_ON:
         is_margin_between_markets(Kraken_BTC_EUR_market, Coinbase_GDAX_BTC_EUR_market)
         if not response:
             last_check = last_check + datetime.timedelta(minutes=1)
-            log_signal("No response waiting until: " + str(last_check))
+            Logger.log_signal("No response waiting until: " + str(last_check))

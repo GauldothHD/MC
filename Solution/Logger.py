@@ -2,9 +2,18 @@ import TelegramBot
 import datetime
 import os
 
+OUTPUT_PATH = "../output/"
 LOG_PATH_MARKETS = "../output/markets_log/"
 LOG_PATH_PROGRAM = "../output/program_log/"
-OUTPUT_PATH = "../output/"
+
+
+def init_folders():
+    if not os.path.isdir(OUTPUT_PATH):
+        os.makedirs(OUTPUT_PATH)
+    if not os.path.isdir(LOG_PATH_MARKETS):
+        os.makedirs(LOG_PATH_MARKETS)
+    if not os.path.isdir(LOG_PATH_PROGRAM):
+        os.makedirs(LOG_PATH_PROGRAM)
 
 
 def log_signal(signal):
@@ -34,8 +43,8 @@ def init_market_log_file(market):
 def log_market_raw_data(market):
     market.log_file = open(LOG_PATH_MARKETS + market.raw_data_file_name, "a+")
     market.log_file.write(str(datetime.datetime.now().time())+","
-                        + str(market.get_top_ask_order_rate())+","+str(market.get_top_ask_order_amount())+","
-                        + str(market.get_top_bid_order_rate())+","+str(market.get_top_bid_order_amount())+","
-                        + str(market.get_top_ask_order_timestamp())+","+str(market.get_top_bid_order_timestamp())+","
-                        + str(market.get_top_ask_order_taker_fee())+","+str(market.get_top_bid_order_taker_fee())+"\n")
+                          + str(market.get_top_ask_order_rate())+","+str(market.get_top_ask_order_amount())+","
+                          + str(market.get_top_bid_order_rate())+","+str(market.get_top_bid_order_amount())+","
+                          + str(market.get_top_ask_order_timestamp())+","+str(market.get_top_bid_order_timestamp())+","
+                          + str(market.get_top_ask_order_taker_fee())+","+str(market.get_top_bid_order_taker_fee())+"\n")
     market.log_file.close()

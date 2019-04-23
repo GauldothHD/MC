@@ -8,6 +8,7 @@ import Logger
 
 CONST_CURRENCY_NAMES = ['ETH', 'BTC', 'LTC']
 
+
 class StockNames:
     QUOINE = "QUOINE"
     TheRockTrading = "TheRockTrading"
