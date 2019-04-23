@@ -4,15 +4,9 @@ import json
 import datetime
 import requests
 import websockets
-import TelegramBot
-import os
+import Logger
 
 CONST_CURRENCY_NAMES = ['ETH', 'BTC', 'LTC']
-
-LOG_PATH_MARKETS = "../output/markets_log/"
-LOG_PATH_PROGRAM = "../output/program_log/"
-OUTPUT_PATH = "../output/"
-
 
 class StockNames:
     QUOINE = "QUOINE"
@@ -40,22 +34,6 @@ class WebSocketThread(threading.Thread):
         loop.run_until_complete(self.stock.get_ticker_websocket(self.market))
         loop.close()
         print("Exiting " + self.name)
-
-
-def log_signal(signal):
-    log_file = open(LOG_PATH_MARKETS + "signals.txt", "a+")
-    log_file.write(str(datetime.datetime.now())+": "+str(signal)+"\n")
-    log_file.close()
-    print(signal)
-    TelegramBot.TB.send_message(signal)
-
-
-def log_error(error_msg):
-    log_file = open(LOG_PATH_PROGRAM + "errors.txt", "a+")
-    log_file.write(str(datetime.datetime.now()) + ": " + str(error_msg) + "\n")
-    log_file.close()
-    print(error_msg)
-    TelegramBot.TB.send_message(error_msg)
 
 
 class Market:
@@ -108,22 +86,10 @@ class Market:
         return False
 
     def log_raw_data(self):
-        # if file doesn't exist - create a folders and header
-
-        self.log_file = open(LOG_PATH_MARKETS + self.raw_data_file_name, "a+")
-        self.log_file.write(str(datetime.datetime.now().time())+","
-                            + str(self.get_top_ask_order_rate())+","+str(self.get_top_ask_order_amount())+","
-                            + str(self.get_top_bid_order_rate())+","+str(self.get_top_bid_order_amount())+","
-                            + str(self.get_top_ask_order_timestamp())+","+str(self.get_top_bid_order_timestamp())+","
-                            + str(self.get_top_ask_order_taker_fee())+","+str(self.get_top_bid_order_taker_fee())+"\n")
-        self.log_file.close()
+        Logger.log_market_raw_data(self)
 
     def init_log_file(self):
-        if not os.path.isfile(LOG_PATH_MARKETS + self.raw_data_file_name):
-            self.log_file = open(LOG_PATH_MARKETS + self.raw_data_file_name, "w+")
-            self.log_file.write("python time, top ask rate, top ask amount, top bid rate, top bid amount, ask time, "
-                                "bid time, ask taker fee, bid taker fee\n")
-            self.log_file.close()
+        Logger.init_market_log_file(self)
 
     # getters:
     def get_top_ask_order_rate(self):
@@ -249,7 +215,7 @@ class Bittrex(Stock):
             self.get_market_data(market)
             return True
         else:
-            log_error("Bittrex response:" + str(req.json()['message']))
+            Logger.log_error("Bittrex response:" + str(req.json()['message']))
             return False
 
     @staticmethod
@@ -266,7 +232,7 @@ class Bittrex(Stock):
                                             ["Rate"])
             return True
         else:
-            log_error("Bittrex response:" + str(req.json()['message']))
+            Logger.log_error("Bittrex response:" + str(req.json()['message']))
             return False
 
 
@@ -326,13 +292,13 @@ class Kraken(Stock):
                 market.set_top_bid_order_timestamp(float(req_json["result"][currency1+currency2]['bids'][0][2]))
                 return True
             else:
-                log_error("Kraken status not 200, status code: " + str(req.status_code) + ",raw: " + str(req.raw))
+                Logger.log_error("Kraken status not 200, status code: " + str(req.status_code) + ",raw: " + str(req.raw))
                 return False
         except KeyError:
-            log_error("Kraken KeyError exception, status code: " + str(req.status_code) + ",raw: " + str(req.json()))
+            Logger.log_error("Kraken KeyError exception, status code: " + str(req.status_code) + ",raw: " + str(req.json()))
             return False
         except:
-            log_error("Kraken exception,status code: " + str(req.status_code) + ",raw: " + str(req.raw))
+            Logger.log_error("Kraken exception,status code: " + str(req.status_code) + ",raw: " + str(req.raw))
             return False
 
 
@@ -369,7 +335,7 @@ class QUOINE(Stock):
             # self.get_market_data(market)
             return True
         else:
-            log_error(str(self.get_name()) + " response code:" + str(response.status_code))
+            Logger.log_error(str(self.get_name()) + " response code:" + str(response.status_code))
             return False
 
 
@@ -398,7 +364,7 @@ class Bitfinex(Stock):
             return True
         # todo: expand exception block
         except:
-            log_error("Bitfinex exception:")
+            Logger.log_error("Bitfinex exception:")
             return False
 
     async def get_ticker_websocket(self, market):
@@ -428,7 +394,7 @@ class Bitfinex(Stock):
                     ask_amount = forth_find[:forth_find.find(",")]
                     # exception code received
                     if bid_rate == "\"code\":20051":
-                        log_signal("websocket: \"code\":20051")
+                        Logger.log_signal("websocket: \"code\":20051")
                         await self.connect(market)
                     market.set_top_bid_order_rate(bid_rate)
                     market.set_top_bid_order_amount(bid_amount)
@@ -453,7 +419,7 @@ class Bitfinex(Stock):
 
 
 class CoinbaseGDAX(Stock):
-    debug = False
+    debug = True
     ticker_websocket = None
     iteration = 0
     last_answer = None
@@ -526,7 +492,7 @@ class CoinbaseGDAX(Stock):
                     market.set_top_ask_order_timestamp(time)
         except websockets.exceptions.ConnectionClosed as exc:
             print(self.last_answer)
-            log_error(str(datetime.datetime.now())+" "+self.stock_name + " error code: " + str(exc.code) + ", reason: "
+            Logger.log_error(str(datetime.datetime.now())+" "+self.stock_name + " error code: " + str(exc.code) + ", reason: "
                       + str(exc.reason) + ", _cause_ : "+str(exc.__cause__))
             self.iteration = self.iteration + 1
             print("Restarting...")
@@ -581,5 +547,5 @@ class TheRockTrading(Stock):
             # self.get_market_data(market)
             return True
         else:
-            log_error(str(self.get_name()) + " response code:" + str(response.status_code))
+            Logger.log_error(str(self.get_name()) + " response code:" + str(response.status_code))
             return False

@@ -163,7 +163,8 @@ init_folders()
 
 Coinbase_GDAX = Stock.CoinbaseGDAX()
 # Coinbase_GDAX_ETH_EUR_market = Coinbase_GDAX.add_market("ETH", "EUR")
-Coinbase_GDAX_BTC_USD_market = Coinbase_GDAX.add_market("BTC", "USD")
+# Coinbase_GDAX_BTC_USD_market = Coinbase_GDAX.add_market("BTC", "USD")
+Coinbase_GDAX_BTC_EUR_market = Coinbase_GDAX.add_market("BTC", "EUR")
 
 # initialisation of Coinbase_X websocket threads
 
@@ -181,8 +182,8 @@ if WEBSOCKET_ON:
 
 # Kraken init:
 Kraken = Stock.Kraken()
-# Kraken_BTC_EUR_market = Kraken.add_market("XXBT", "ZEUR")
-Kraken_BTC_USD_market = Kraken.add_market("XXBT", "ZUSD")
+Kraken_BTC_EUR_market = Kraken.add_market("XXBT", "ZEUR")
+# Kraken_BTC_USD_market = Kraken.add_market("XXBT", "ZEUR")
 # Kraken_ETH_EUR_market = Kraken.add_market("XETH", "ZEUR")
 # Kraken_EOS_EUR_market = Kraken.add_market("EOS", "EUR")
 # Kraken_BCH_EUR_market = Kraken.add_market("BCH", "EUR") pair doesn't exist on Bitfinex
@@ -212,7 +213,7 @@ while REST_ON:
     if datetime.datetime.now() - iteration > last_check:
         response = gather_info(activeStocks)
         last_check = datetime.datetime.now()
-        is_margin_between_markets(Kraken_BTC_USD_market, Coinbase_GDAX_BTC_USD_market)
+        is_margin_between_markets(Kraken_BTC_EUR_market, Coinbase_GDAX_BTC_EUR_market)
         if not response:
             last_check = last_check + datetime.timedelta(minutes=1)
             log_signal("No response waiting until: " + str(last_check))
