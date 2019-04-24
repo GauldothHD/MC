@@ -16,12 +16,20 @@ def init_folders():
         os.makedirs(LOG_PATH_PROGRAM)
 
 
-def log_signal(signal):
-    log_file = open(LOG_PATH_MARKETS + "signals.txt", "a+")
-    log_file.write(str(datetime.datetime.now())+": "+str(signal)+"\n")
+def log_info(info_msg):
+    log_file = open(LOG_PATH_PROGRAM + "info.txt", "a+")
+    log_file.write(str(datetime.datetime.now())+": "+str(info_msg)+"\n")
     log_file.close()
-    print(signal)
-    TelegramBot.TB.send_message(signal)
+    print(info_msg)
+    TelegramBot.TB.send_message(info_msg)
+
+
+def log_signal(signal_msg):
+    log_file = open(LOG_PATH_MARKETS + "signals.txt", "a+")
+    log_file.write(str(datetime.datetime.now())+": "+str(signal_msg)+"\n")
+    log_file.close()
+    print(signal_msg)
+    TelegramBot.TB.send_message(signal_msg)
 
 
 def log_error(error_msg):

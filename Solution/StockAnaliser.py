@@ -1,11 +1,10 @@
 #!/usr/bin/python
 
 import datetime
-import asyncio
-import threading
-import TelegramBot
+
 import Stock
 import Logger
+import Threading
 
 WEBSOCKET_ON = True
 REST_ON = True
@@ -13,30 +12,6 @@ VERY_SMALL_POSITIVE_NUMBER = 0.0000000001
 
 
 activeStocks = []
-
-
-# Thread for websocket
-class WebSocketThread(threading.Thread):
-
-    stock = None
-    market = None
-
-    def __init__(self, thread_id, name, counter, stock, current_market):
-        threading.Thread.__init__(self)
-        self.threadID = thread_id
-        self.name = name
-        self.counter = counter
-        self.market = current_market
-        self.stock = stock
-
-    def run(self):
-        print("Starting " + self.name)
-        TelegramBot.TB.send_message("Starting " + self.name)
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        loop.run_until_complete(self.stock.get_ticker_websocket(self.market))
-        loop.close()
-        print("Exiting " + self.name)
 
 
 def print_trade_info(crypto_currency, fiat_currency, buy_stock_name, sell_stock_name, stock_buy_crypto_rate,
@@ -154,7 +129,8 @@ if WEBSOCKET_ON:
     for market in Coinbase_GDAX.get_market_list():
         threadIterator = threadIterator + 1
         Coinbase_GDAXMarketThread = \
-            WebSocketThread(threadIterator, "Thread: " + market.get_market_name(), threadIterator, Coinbase_GDAX, market)
+            Threading.WebSocketThread(threadIterator, "Thread: " + market.get_market_name(), threadIterator,
+                                      Coinbase_GDAX, market)
         Coinbase_GDAXMarketThread.start()
 
 # Bittrex init:

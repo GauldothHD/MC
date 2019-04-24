@@ -1,6 +1,8 @@
 import Stock
 import websockets
 import json
+import Logger
+import datetime
 
 
 class CoinbaseGDAX(Stock):
@@ -77,7 +79,7 @@ class CoinbaseGDAX(Stock):
                     market.set_top_ask_order_timestamp(time)
         except websockets.exceptions.ConnectionClosed as exc:
             print(self.last_answer)
-            log_error(str(datetime.datetime.now())+" "+self.stock_name + " error code: " + str(exc.code) + ", reason: "
+            Logger.log_error(str(datetime.datetime.now())+" "+self.stock_name + " error code: " + str(exc.code) + ", reason: "
                       + str(exc.reason) + ", _cause_ : "+str(exc.__cause__))
             self.iteration = self.iteration + 1
             print("Restarting...")
@@ -85,6 +87,21 @@ class CoinbaseGDAX(Stock):
                 WebSocketThread(self.iteration, "Thread: " + market.get_market_name() + str(self.iteration),
                                 self.iteration, self, market)
             Coinbase_GDAXMarketThread.start()
+
+    async def subscribe_heartbeat(self, market):
+        currency1 = market.get_currency1()
+        currency2 = market.get_currency2()
+        async with websockets.connect(self.websocket_address) as websocket:
+            self.ticker_websocket = websocket
+            json_ticker_subscriber = json.dumps(
+                {"type": "subscribe",
+                 "channels": [{"name": "heartbeat", "product_ids": [currency1+"-"+currency2]}]
+                 })
+            await websocket.send(json_ticker_subscriber)
+            info_json = await websocket.recv()
+            print(info_json)
+            subscribed_json = await websocket.recv()
+            print(subscribed_json)
 
     async def connect(self, market):
         currency1 = market.get_currency1()
