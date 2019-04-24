@@ -17,9 +17,3 @@ def coinbase_init(currency1, currency2):
 coinbase_init("BTC", "EUR")
 
 
-
-last_check = datetime.datetime.now()
-iteration = datetime.timedelta(seconds=1)
-i = 0
-while True:
-   i=i+1
