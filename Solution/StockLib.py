@@ -34,6 +34,8 @@ class Market:
     buy_orders = []
     sell_orders = []
     last_update = None
+    sequence = 0
+    sequence_dif = 0
 
     # todo: check the flow of this variable is it needed?
     response = "false"
@@ -127,6 +129,16 @@ class Market:
 
     def set_response(self, value):
         self.response = value
+
+    def set_last_update(self, value):
+        # todo implement datetime check to raise error if last update is too long
+        self.last_update = value
+
+    def set_sequence(self, value):
+        self.sequence_dif = int(value) - int(self.sequence)
+        if (self.sequence_dif > 100) and (self.sequence != 0):
+            Logger.log_error(str(self.get_market_name()) + " too big sequence difference: " + str(self.sequence_dif))
+        self.sequence = value
 
 
 # general parent class

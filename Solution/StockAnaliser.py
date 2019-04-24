@@ -7,7 +7,7 @@ import StockLib
 import CoinbaseAPI
 
 WEBSOCKET_ON = True
-REST_ON = True
+REST_ON = False
 VERY_SMALL_POSITIVE_NUMBER = 0.0000000001
 
 
