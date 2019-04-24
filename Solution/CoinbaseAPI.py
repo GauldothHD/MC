@@ -8,7 +8,9 @@ import Threading
 websocket_address = 'wss://ws-feed.gdax.com'
 debug = True
 
-last_update = 0;
+last_update = 0
+
+channels = []
 
 ### single market mode
 
@@ -23,8 +25,14 @@ async def subscribe_heartbeat(market):
              })
         await websocket.send(json_ticker_subscriber)
         info_json = await websocket.recv()
+        if info_json.find('"name":'):
+            channels.append(info_json[info_json.find('"name":'):-2])
+        else:
+            Logger.log_error("couldn't subscribe to the Coinbase heartbeat")
+            return
         while True:
             heartbeat_json = await websocket.recv()
+            market.set_last_trade_id(heartbeat_json[heartbeat_json.find('"last_trade_id":')+16:-83])
             market.set_last_update(heartbeat_json[heartbeat_json.find('"time":"')+19:-3])
             market.set_sequence(heartbeat_json[heartbeat_json.find('"sequence":')+11:-38])
 

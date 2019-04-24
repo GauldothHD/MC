@@ -33,9 +33,12 @@ class Market:
     stock_name = ""
     buy_orders = []
     sell_orders = []
+
     last_update = None
     sequence = 0
     sequence_dif = 0
+    last_trade_id = 0
+    last_trade_id_dif = 0
 
     # todo: check the flow of this variable is it needed?
     response = "false"
@@ -137,8 +140,14 @@ class Market:
     def set_sequence(self, value):
         self.sequence_dif = int(value) - int(self.sequence)
         if (self.sequence_dif > 100) and (self.sequence != 0):
-            Logger.log_error(str(self.get_market_name()) + " too big sequence difference: " + str(self.sequence_dif))
+            Logger.log_info(str(self.get_market_name()) + " too big sequence difference: " + str(self.sequence_dif))
         self.sequence = value
+
+    def set_last_trade_id(self, value):
+        self.last_trade_id_dif = int(value) - int(self.last_trade_id)
+        if (self.last_trade_id_dif > 0) and (self.last_trade_id != 0):
+            Logger.log_info(str(self.get_market_name()) + " missed a trade: " + str(self.last_trade_id_dif))
+        self.last_trade_id = value
 
 
 # general parent class
