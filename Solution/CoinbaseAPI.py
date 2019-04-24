@@ -1,11 +1,12 @@
-import Stock
+import StockLib
 import websockets
 import json
 import Logger
 import datetime
+import Threading
 
 
-class CoinbaseGDAX(Stock):
+class CoinbaseGDAX(StockLib.Stock):
     debug = True
     ticker_websocket = None
     iteration = 0
@@ -14,7 +15,7 @@ class CoinbaseGDAX(Stock):
     websocket_address = 'wss://ws-feed.gdax.com'
 
     def __init__(self):
-        Stock.__init__(self)
+        StockLib.Stock.__init__(self)
         self.stock_name = "COINBASE_GDAX"
         self.taker_fee = 0.0030  # custom set commission
 
@@ -84,7 +85,7 @@ class CoinbaseGDAX(Stock):
             self.iteration = self.iteration + 1
             print("Restarting...")
             Coinbase_GDAXMarketThread = \
-                WebSocketThread(self.iteration, "Thread: " + market.get_market_name() + str(self.iteration),
+                Threading.WebSocketThread(self.iteration, "Thread: " + market.get_market_name() + str(self.iteration),
                                 self.iteration, self, market)
             Coinbase_GDAXMarketThread.start()
 

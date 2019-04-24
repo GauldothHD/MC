@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
 import datetime
-
-import Stock
 import Logger
 import Threading
+import StockLib
+import CoinbaseAPI
 
 WEBSOCKET_ON = True
 REST_ON = True
@@ -117,7 +117,7 @@ Logger.init_folders()
 
 # COINBASE_GDAX init:
 
-Coinbase_GDAX = Stock.CoinbaseGDAX()
+Coinbase_GDAX = CoinbaseAPI.CoinbaseGDAX()
 # Coinbase_GDAX_ETH_EUR_market = Coinbase_GDAX.add_market("ETH", "EUR")
 # Coinbase_GDAX_BTC_USD_market = Coinbase_GDAX.add_market("BTC", "USD")
 Coinbase_GDAX_BTC_EUR_market = Coinbase_GDAX.add_market("BTC", "EUR")
@@ -138,7 +138,7 @@ if WEBSOCKET_ON:
 # Bittrex_BTC_USDT_market = Bittrex.add_market("BTC", "TUSD")
 
 # Kraken init:
-Kraken = Stock.Kraken()
+Kraken = StockLib.Kraken()
 Kraken_BTC_EUR_market = Kraken.add_market("XXBT", "ZEUR")
 # Kraken_BTC_USD_market = Kraken.add_market("XXBT", "ZEUR")
 # Kraken_ETH_EUR_market = Kraken.add_market("XETH", "ZEUR")
