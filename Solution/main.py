@@ -12,6 +12,7 @@ def coinbase_init(currency1, currency2):
                                   thread_iterator, coinbase_gdax, coinbase_gdax_btc_eur_market,
                                   CoinbaseAPI.subscribe_heartbeat)
     coinbase_btc_eur_heartbeat_thread.start()
+    thread_iterator += 1
 
 
 coinbase_init("BTC", "EUR")

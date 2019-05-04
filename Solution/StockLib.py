@@ -35,8 +35,12 @@ class Market:
     sell_orders = []
 
     last_update = None
+
     sequence = 0
     sequence_dif = 0
+    average_sequence_dif = 0
+    sequence_iterator = 0
+
     last_trade_id = 0
     last_trade_id_dif = 0
 
@@ -138,9 +142,15 @@ class Market:
         self.last_update = value
 
     def set_sequence(self, value):
-        self.sequence_dif = int(value) - int(self.sequence)
+        self.sequence_iterator += 1
+        if self.sequence_iterator == 1:
+            self.sequence_dif = 0
+        else:
+            self.sequence_dif = int(value) - int(self.sequence)
+        self.average_sequence_dif = (self.average_sequence_dif * (self.sequence_iterator - 1) + self.sequence_dif) / self.sequence_iterator
         if (self.sequence_dif > 100) and (self.sequence != 0):
-            Logger.log_info(str(self.get_market_name()) + " too big sequence difference: " + str(self.sequence_dif))
+            Logger.log_info(str(self.get_market_name()) + " too big sequence difference: " + str(self.sequence_dif) +
+                            "\r\n Average sequence difference: " + '{:=.2f}'.format(self.average_sequence_dif))
         self.sequence = value
 
     def set_last_trade_id(self, value):

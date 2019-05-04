@@ -43,8 +43,6 @@ class CoinbaseGDAX(StockLib.Stock):
     iteration = 0
     last_answer = None
 
-
-
     def __init__(self):
         StockLib.Stock.__init__(self)
         self.stock_name = "COINBASE_GDAX"
